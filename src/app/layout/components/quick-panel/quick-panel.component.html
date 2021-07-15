@@ -1,0 +1,50 @@
+<mat-list class="date" cdkFocusRegionStart>
+
+    <h3 matSubheader cdkFocusInit>
+        <span>Hôm nay</span>
+    </h3>
+
+    <div class="secondary-text mat-display-1 mb-0 p-16">
+        <div class="mb-12">
+            <!-- {{date | date:'EEEE'}} -->
+            {{day}}
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <span> {{fulldate}}</span>
+            <!-- <span class="mat-subheading-1">th</span>
+            <span> {{date | date:'MMMM'}}</span> -->
+        </div>
+    </div>
+</mat-list>
+
+<mat-divider cdkFocusRegionEnd></mat-divider>
+
+<!-- <mat-list>
+    <h3 matSubheader>
+        <span>Ticket chờ xử lý</span>
+    </h3>
+
+    <mat-list-item *ngFor="let event of events" (click)="openTicket(event)">
+        <h3 matLine style="cursor: pointer">SĐT: 
+            <span style="color: #03A9F4">{{event.customerPhone}}</span>
+            </h3>
+    </mat-list-item>
+</mat-list>
+
+<mat-divider></mat-divider> -->
+
+<mat-list>
+    <h3 matSubheader>
+        <span>Ghi chú</span>
+    </h3>
+
+    <mat-list-item *ngFor="let note of notes">
+        <h3 matLine>{{note.title}}</h3>
+        <p matLine class="secondary-text">{{note.detail}}</p>
+    </mat-list-item>
+    <mat-list-item>
+        <h3 matLine>Phiên bản : {{version}}</h3>
+    </mat-list-item>
+</mat-list>
+
+<mat-divider></mat-divider>

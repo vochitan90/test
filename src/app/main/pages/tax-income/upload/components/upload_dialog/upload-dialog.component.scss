@@ -1,0 +1,22 @@
+@import 'src/@fuse/scss/fuse';
+
+#uploadTaxIncomeDialog {
+    display: flex;
+    flex-direction: column;
+
+    .content-card {
+        padding: 13px;
+        height: calc(57vh - 137px);
+        overflow: auto;
+
+        mat-label {
+            font-weight: bold;
+        }
+    }
+
+    .list-button {
+        gap: 7px;
+        border-top: 1px solid #018747;
+        padding-top: 14px;
+    }
+}

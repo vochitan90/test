@@ -1,0 +1,203 @@
+@import "src/@fuse/scss/fuse";
+::ng-deep #taxincomeLetterDetailDialog {
+
+	display: flex;
+    flex-direction: column;
+
+    mat-label {
+        font-weight: bold;
+    }
+
+    .font-weight-bold {
+        font-weight: bold;
+    }
+
+    .font-italic {
+        font-style: italic;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+	
+	.content-card {
+        height: calc(96vh - 136px);
+        padding: 2px 10px;
+        overflow: auto;
+
+        .no-info {
+            font-style: italic;
+        }
+
+        .header-block {
+            display: flex;
+            align-items: center;
+        }
+
+        .info-taxincome {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #tableHistory {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #tableHistory td,
+        #tableHistory th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #tableHistory tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #tableHistory tr:hover {
+            background-color: #ddd;
+        }
+
+        #tableHistory th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #018747;
+            color: white;
+            font-weight: normal;
+        }
+
+        .icon-info {
+            color: #039be5;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-check {
+            color: #039be5;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-success {
+            color: green;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-error {
+            color: red;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .validate-cer-info {
+            display: flex;
+            justify-content: space-between;
+
+            .error-content {
+                color: red;
+            }
+
+            .block {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+
+                .name {
+                    font-weight: bold;
+                }
+
+                .block-item {
+                    position: relative;
+                    top: 10px;
+    
+                    .font-weight-bold{
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .download-cer {
+                cursor: pointer;
+
+                .title-dowload-cer {
+                    color: blue;
+                    font-weight: bold;
+                }
+
+                &:hover {
+                    .title-dowload-cer {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .cer-info {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+            }
+
+            .validate {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                .sign-date {
+                    color: #039be5;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .attach-file {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+
+            .block-file {
+                display: flex;
+                flex-direction: column;
+                gap: 9px;
+
+                .icon-file {
+                    float: left;
+                    border-radius: 3px;
+                    display: flex;
+                    margin-right: 5px;
+
+                    mat-icon {
+                        height: 28px;
+                    }
+                }
+
+                .file {
+                    display: flex;
+                    cursor: pointer;
+                    align-items: center;
+
+                    .file-name {
+                        color: #039be5;
+                        font-weight: bold;
+                    }
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .list-button {
+        border-top: 1px solid #018747;
+        padding-top: 10px;
+    }
+}

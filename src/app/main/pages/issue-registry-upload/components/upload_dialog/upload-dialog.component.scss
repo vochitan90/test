@@ -1,0 +1,63 @@
+@import "src/@fuse/scss/fuse";
+
+#issueRegistryUploadDialog {
+    display: flex;
+    flex-direction: column;
+
+    .content-card {
+        height: calc(95vh - 135px);
+        padding: 15px;
+        overflow: auto;
+
+        mat-label {
+            font-weight: bold;
+        }
+    }
+
+    .attach-file {
+        .icon-file {
+            float: left;
+            border: 1px solid #80808059;
+            border-radius: 3px;
+            display: flex;
+            padding: 3px;
+            margin-right: 10px;
+
+            mat-icon {
+                height: 28px;
+            }
+        }
+
+        .title-attachment {
+            font-style: italic;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .u-padding-bt {
+            padding-bottom: 25px;
+        }
+
+        .upload-button {
+            min-width: 0px;
+        }
+    }
+
+    .single-file{
+        padding-top: 10px;
+
+        .file-name a{
+            cursor: pointer;
+        }
+    }
+
+    .list-button {
+        border-top: 1px solid #018747;
+        padding-top: 10px;
+    }
+}
+
+.u-padding-16-left {
+    padding-left: 0px;
+}

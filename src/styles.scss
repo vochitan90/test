@@ -1,0 +1,722 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "@fuse/scss/aggrid.scss";
+// @import "~ag-grid-community/dist/styles/ag-theme-material.css";
+// -----------------------------------------------------------------------------------------------------
+// @ Multiple material themes example
+// -----------------------------------------------------------------------------------------------------
+// Define the Material palettes
+$yellow-theme-primary: mat-palette($mat-fusedark);
+$yellow-theme-accent: mat-palette($mat-yellow, 600, 400, 700);
+$yellow-theme-warn: mat-palette($mat-red);
+// Create the Material theme object
+$yellow-theme: mat-light-theme($yellow-theme-primary, $yellow-theme-accent, $yellow-theme-warn);
+
+// Add ".yellow-theme" class to the body to activate this theme
+.yellow-theme {
+    // Generate the Angular Material theme
+    @include angular-material-theme($yellow-theme); // Generate the fuse color classes with the new colors...
+    @include generateFuseColorClasses($yellow-theme-primary, $yellow-theme-accent, $yellow-theme-warn);
+}
+
+// Variables 
+$primary: #1976d2;
+$spinnerColor: #ffffff;
+
+// Snackbar
+.complete-snackbar {
+    background: $primary !important;
+}
+
+.error-snackbar {
+    background: red !important;
+}
+
+.mat-simple-snackbar {
+    color: white;
+}
+
+.loading-shade {
+    position: absolute;
+    margin: auto;
+    top: 300px;
+    z-index: 999999;
+    width: 100%;
+    color: #00a9f4;
+    text-align: center;
+}
+
+.rate-limit-reached {
+    color: #00a9f4;
+    max-width: 360px;
+    text-align: center;
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+    // stroke: #00a9f4 !important;
+    stroke: white;
+}
+
+.custom-spinner {
+
+    .mat-progress-spinner circle,
+    .mat-spinner circle {
+        // stroke: #00a9f4 !important;
+        stroke: #f27554 !important;
+        // stroke: white;
+    }
+}
+
+.column-max-width-120 {
+    max-width: 120px;
+}
+
+.column-max-width-140 {
+    max-width: 140px;
+}
+
+.column-max-width-150 {
+    max-width: 150px;
+}
+
+.mat-input-element:disabled {
+    color: #000 !important;
+}
+
+.mat-row:hover,
+.mat-row:focus {
+    background: #f3f9ff !important;
+    cursor: pointer;
+}
+
+.spinnerLoading {
+    height: 30px !important;
+    width: 30px !important;
+    margin: auto; // text-align: center;
+
+    .mat-progress-spinner svg {
+        height: 30px !important;
+        width: 30px !important;
+    }
+}
+
+// Utility css
+.u-padding-form-field {
+    padding: 8px 16px 0px 16px;
+}
+
+.u-padding-form-field2 {
+    padding: 0px 16px 0px 0px;
+}
+
+.u-padding-form-field-search {
+    padding: 0px 0px 0px 16px;
+}
+
+.u-width-100 {
+    width: 100% !important;
+}
+
+.u-width-50 {
+    width: 50% !important;
+}
+
+.emp-u-width-50 {
+    width: 48% !important;
+}
+
+.u-width-30 {
+    width: 30% !important;
+}
+
+.icon-search-emp {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.u-padding-button-control {
+    margin: 0px 16px 0px 0px !important;
+}
+
+.u-padding-form-field {
+    margin: 0px 16px 0px 0px !important;
+}
+
+.u-button-remove-control {
+    padding: 0px;
+    min-width: 40px !important;
+}
+
+.u-mat-form-field-width-auto {
+    width: auto !important;
+}
+
+.u-text-mat-form-field {
+    color: white !important;
+}
+
+.ag-theme-material {
+    .ag-ltr {
+        .ag-row-selected {
+            background-color: rgba(33, 150, 243, 0.38);
+        }
+    }
+
+    .ag-cell-inline-editing {
+        padding: 24px 10px;
+
+        .ag-cell-edit-input {
+            padding: 0;
+        }
+
+        mat-form-field {
+            width: 100%;
+
+            .mat-form-field-infix {
+                border: none;
+                padding: 0;
+            }
+        }
+    }
+}
+
+.mat-form-field-border-bottom-white {
+    .mat-form-field-flex {
+        border-bottom: 1px solid white;
+    }
+}
+
+// page login css
+.login-form-main {
+    width: 100%;
+    background: url('assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
+    background-size: cover;
+
+    .login-form-wrapper {
+        flex: 1 0 auto;
+        padding: 32px;
+
+        @include media-breakpoint('xs') {
+            padding: 16px;
+        }
+
+        .login-form {
+            width: 384px;
+            max-width: 384px;
+            padding: 32px;
+            background: #FFFFFF;
+            text-align: center;
+            @include mat-elevation(16);
+
+            @include media-breakpoint('xs') {
+                padding: 24px;
+                width: 100%;
+            }
+
+            .logo {
+                width: 128px;
+                margin: 32px auto;
+            }
+
+            .title {
+                font-size: 20px;
+                margin: 16px 0 32px 0;
+            }
+
+            form {
+                width: 100%;
+                text-align: left;
+
+                mat-form-field {
+                    width: 100%;
+                }
+
+                mat-checkbox {
+                    margin: 0;
+                }
+
+                .remember-forgot-password {
+                    font-size: 13px;
+                    margin-top: 8px;
+
+                    .remember-me {
+                        margin-bottom: 16px
+                    }
+
+                    .forgot-password {
+                        font-size: 13px;
+                        font-weight: 500;
+                        margin-bottom: 16px
+                    }
+                }
+
+                .submit-button {
+                    width: 220px; // margin: 16px auto;
+                    margin: 16px auto 0px auto;
+                    display: block;
+
+                    @include media-breakpoint('xs') {
+                        width: 90%;
+                    }
+                }
+            }
+
+            .register {
+                margin: 32px auto 24px auto;
+                font-weight: 500;
+
+                .text {
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+}
+
+.mat-progress-bar-buffer {
+    background-color: #5c616f;
+}
+
+.floatRight {
+    float: right;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.u-padding-right-button-footer {
+    margin-right: 10px;
+}
+
+.mat-chip-list-wrapper mat-chip.mat-chip {
+    margin: 0 4px 0 4px;
+}
+
+.contacts-table {
+    flex: 1 1 auto;
+    height: calc(100vh - 180px);
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    -webkit-overflow-scrolling: touch;
+}
+
+.custom-dialog {
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+
+    .mat-dialog-container {
+        padding: 6px !important;
+        width: 90vw;
+        height: 90vh;
+        overflow: hidden !important;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            // height: 30px !important;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 1.0em;
+    }
+
+}
+
+.custom-dialog-default {
+    .mat-dialog-container {
+        padding: 6px !important;
+        overflow: hidden !important;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            // height: 30px !important;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 1.0em;
+    }
+}
+
+.detail-tax-income-dialog, 
+.detail-tax-income-letter-dialog,
+.org-info-dialog,
+.release-registry-dialog{
+    max-width: 70vw !important;
+    max-height: 95vh !important;
+
+    .mat-dialog-container {
+        padding: 6px !important;
+        width: 70vw;
+        height: 95vh;
+        overflow: hidden !important;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            // height: 30px !important;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 1.0em;
+    }
+
+}
+
+.tax-income-upload-dialog{
+    max-width: 70vw !important;
+    max-height: 70vh !important;
+
+    .mat-dialog-container {
+        padding: 6px !important;
+        width: 34vw;
+        height: 57vh;
+        overflow: hidden !important;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            // height: 30px !important;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 1.0em;
+    }
+}
+
+.tax-income-letter-dialog{
+    max-width: 70vw !important;
+    max-height: 70vh !important;
+
+    .mat-dialog-container {
+        padding: 6px !important;
+        width: 48vw;
+        height: 57vh;
+        overflow: hidden !important;
+
+        .mat-toolbar {
+            flex: 1 0 auto;
+            min-height: initial;
+            // height: 30px !important;
+        }
+
+        .toolbar-bottom {
+            height: auto;
+        }
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 1.0em;
+    }
+}
+
+// .custom-dialog-list-usb-token{
+//     max-width: 70vw !important;
+//     max-height: 70vh !important;
+
+//     .mat-dialog-container {
+//         padding: 6px !important;
+//         width: 48vw;
+//         height: 57vh;
+//         overflow: hidden !important;
+
+//         .mat-toolbar {
+//             flex: 1 0 auto;
+//             min-height: initial;
+//             // height: 30px !important;
+//         }
+
+//         .toolbar-bottom {
+//             height: auto;
+//         }
+//     }
+
+//     .mat-form-field-wrapper {
+//         padding-bottom: 1.0em;
+//     }
+// }
+
+// .mat-dialog-container-customer {
+//     padding: 8px !important;
+//     width: calc(100vw - 100px) !important;
+//     overflow: hidden !important;
+
+//     .mat-toolbar {
+//         flex: 1 0 auto;
+//         min-height: initial;
+//         height: 50px !important;
+//     }
+
+//     .toolbar-bottom {
+//         height: auto;
+//     }
+// }
+
+.icon-btn {
+    margin-right: 5px;
+}
+
+.read-notification {
+    float: right;
+    cursor: pointer;
+    color: #039be5;
+}
+
+// aggird
+$height-record-aggird-40: 44px !important;
+$height-record-aggird-44: 44px !important;
+$height-record-aggird-50: 50px !important;
+
+.ag-theme-material {
+
+    .ag-header-cell,
+    .ag-header-group-cell {
+        line-height: $height-record-aggird-40;
+    }
+
+    .ag-header-cell-menu-button .ag-icon-menu {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-header-row {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-header {
+        height: $height-record-aggird-40;
+        min-height: $height-record-aggird-40;
+    }
+
+    .ag-row {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-theme-material .ag-cell {
+        line-height: $height-record-aggird-40;
+    }
+
+    .ag-cell {
+        line-height: $height-record-aggird-40;
+    }
+}
+
+.ag-theme-material {
+
+    .ag-header-cell,
+    .ag-header-group-cell {
+        line-height: $height-record-aggird-40;
+    }
+
+    .ag-header-cell-menu-button .ag-icon-menu {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-header-row {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-header {
+        height: $height-record-aggird-40;
+        min-height: $height-record-aggird-40;
+    }
+
+    .ag-row {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-theme-material .ag-cell {
+        line-height: $height-record-aggird-40;
+    }
+
+    .ag-cell {
+        line-height: $height-record-aggird-40;
+    }
+}
+
+
+.ag-theme-material-paging {
+
+    .ag-header-cell,
+    .ag-header-group-cell {
+        line-height: $height-record-aggird-40;
+    }
+
+    .ag-header-cell-menu-button .ag-icon-menu {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-header-row {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-header {
+        height: $height-record-aggird-40;
+        min-height: $height-record-aggird-40;
+    }
+
+    .ag-row {
+        height: $height-record-aggird-40;
+    }
+
+    .ag-theme-material .ag-cell {
+        line-height: $height-record-aggird-40;
+    }
+
+    .ag-cell {
+        line-height: $height-record-aggird-40;
+    }
+
+    .ag-paging-panel {
+        height: 40px;
+    }
+}
+
+.height-table-aggrid {
+    flex: 1 1 auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.form-container {
+    min-height: calc(100vh - 100px);
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
+}
+
+.sticky-bottom {
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid #018747;
+}
+
+.dialog-content-wrapper {
+    .mat-dialog-actions {
+        padding: 4px 0;
+        min-height: 30px;
+        margin-bottom: -24px;
+    }
+
+    .mat-toolbar {
+        // height: 30px !important;
+    }
+}
+
+.u-padding-7-left {
+    padding-left: 7px;
+}
+
+.u-padding-7-left-right {
+    padding: 0px 7px;
+}
+
+.u-margin-0 {
+    margin: 0px;
+}
+
+.p-title-form {
+    padding: 0px 0px 0px 7px;
+    margin: 7px 0px;
+    font-weight: bold;
+}
+
+.btn-close {
+    background-color: #ff6f00;
+    color: white;
+}
+
+.btn-main {
+    background-color: #018747;
+    color: white;
+}
+
+.btn-edit {
+    background-color: rgb(0, 119, 255);
+    color: white;
+}
+
+.btn-danger {
+    background-color: red;
+    color: white;
+}
+
+.u-padding-16-left {
+    padding-left: 16px;
+}
+
+.u-color-main {
+    color: #018747;
+}
+
+.u-color-danger {
+    color: red;
+}
+
+.pswp__img {
+    background: white !important;
+}
+
+#tableOldVersion {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tableOldVersion td,
+#tableOldVersion th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tableOldVersion tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#tableOldVersion tr:hover {
+    background-color: #ddd;
+}
+
+#tableOldVersion th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #018747;
+    color: white;
+    font-weight: normal;
+}
+
+.action-click {
+    color: blue;
+    cursor: pointer;
+}
+
+.ag-root-wrapper .ag-watermark {
+    display: none !important;
+}
+
+.attach-file{
+    .upload-button{
+        display: flex!important;
+        align-items: center!important;
+        //min-width: 0px;
+    }
+}

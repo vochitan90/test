@@ -1,0 +1,25 @@
+<!-- <td-dialog>
+  <td-dialog-title *ngIf="title">
+    {{title}}
+  </td-dialog-title>
+  <td-dialog-content>
+    <span class="td-dialog-message">{{message}}</span>
+  </td-dialog-content>
+  <td-dialog-actions>
+    <button mat-button #closeBtn (keydown.arrowright)="acceptBtn.focus()" (click)="cancel()">{{cancelButton}}</button>
+    <button mat-button color="accent" #acceptBtn (keydown.arrowleft)="closeBtn.focus()" (click)="accept()">{{acceptButton}}</button>
+  </td-dialog-actions>
+</td-dialog> -->
+<div class="td-dialog-wrapper">
+  <h3 class="td-dialog-title" *ngIf="title" >
+    {{title}}
+  </h3>
+  <div class="td-dialog-content"  *ngIf="message" >
+    {{message}}
+  </div>
+  <div class="td-dialog-actions">
+    <span class="td-dialog-spacer"></span>
+      <button *ngIf="cancelButton"  mat-button #closeBtn (keydown.arrowright)="acceptBtn.focus()" (click)="cancel()">{{cancelButton}}</button>
+      <button  *ngIf="acceptButton" mat-button color="accent" #acceptBtn (keydown.arrowleft)="closeBtn.focus()" (click)="accept()">{{acceptButton}}</button>
+  </div>
+</div>

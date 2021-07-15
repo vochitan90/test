@@ -1,0 +1,363 @@
+<div id="createReleaseRegistration" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <div class="dialog-content-wrapper content">
+            <div class="center">
+                <div class="header mat-accent-bg" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div style="padding-bottom: 10px; padding-top: 10px;" fxLayout="row" fxLayoutAlign="start center">
+                        <button mat-icon-button class="mr-0 mr-sm-16" (click)="close()">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <div fxLayout="column" fxLayoutAlign="start start">
+                            <div class="h3">
+                                {{'RELEASE_REGISTRATION.RELEASE_REGISTRATION' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-card mat-white-bg ag-theme-material-paging">
+                <mat-progress-bar *ngIf="_store.isLoading" mode="indeterminate"></mat-progress-bar>
+                <form [formGroup]="form">
+                    <p class="p-title-form"> {{'RELEASE_REGISTRATION.ISSUER_INFORMATION' | translate}}</p>
+                    <div class="form-content">
+                        <!-- Tên tổ chức trả thu nhập -->
+                        <mat-form-field class="u-margin-0 u-width-100">
+                            <mat-label>{{'RELEASE_REGISTRATION.ORGANIZATION_PAYING_INCOME' | translate}} *</mat-label>
+                            <mat-select formControlName="organizationPayingIncome"
+                                (selectionChange)="organizationChange($event)">
+                                <mat-option [value]="-1">-- Chọn --</mat-option>
+                                <mat-option *ngFor="let item of listBU" [value]="item">
+                                    {{ item.code + ' - ' + item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div fxLayout="row" fxLayoutGap="80px">
+                            <!-- Mã số thuế -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="taxcode" matInput readonly
+                                    placeholder="{{'RELEASE_REGISTRATION.TAX_CODE' | translate}}" name="taxcode">
+                                <mat-error *ngIf="form.get('taxcode').invalid">
+                                    <span *ngIf="form.get('taxcode').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                            <!-- Số điện thoại-->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="contactPhone" matInput readonly
+                                    placeholder="{{'RELEASE_REGISTRATION.PHONE_NUMBER' | translate}}"
+                                    name="contactPhone">
+                                <mat-error *ngIf="form.get('contactPhone').invalid">
+                                    <span *ngIf="form.get('contactPhone').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                    <span *ngIf="form.get('contactPhone').errors?.pattern">
+                                        Số điện thoại không hợp lệ</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!-- Ngành nghề kinh doanh-->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <input formControlName="majorInfo" matInput readonly
+                                placeholder="{{'RELEASE_REGISTRATION.BUSINESS' | translate}}" name="majorInfo">
+                            <mat-error *ngIf="form.get('majorInfo').invalid">
+                                <span *ngIf="form.get('majorInfo').errors?.required">
+                                    {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- Địa chỉ-->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <input formControlName="address" matInput readonly
+                                placeholder="{{'RELEASE_REGISTRATION.ADDRESS' | translate}}" name="address">
+                            <mat-error *ngIf="form.get('address').invalid">
+                                <span *ngIf="form.get('address').errors?.required">
+                                    {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <div fxLayout="row" fxLayoutGap="80px">
+                            <!-- Thành phố tỉnh -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="cityProvince" matInput readonly
+                                    placeholder="{{'RELEASE_REGISTRATION.CITY_PROVINCE' | translate}}"
+                                    name="cityProvince">
+                                <mat-error *ngIf="form.get('cityProvince').invalid">
+                                    <span *ngIf="form.get('cityProvince').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                            <!-- Quận huyện thị xã -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="countyDistrictTown" matInput readonly
+                                    placeholder="{{'RELEASE_REGISTRATION.COUNTY_DISTRICT_TOWN' | translate}}"
+                                    name="countyDistrictTown">
+                                <mat-error *ngIf="form.get('countyDistrictTown').invalid">
+                                    <span *ngIf="form.get('countyDistrictTown').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <!-- Phường xã-->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <input formControlName="wards" matInput readonly
+                                placeholder="{{'RELEASE_REGISTRATION.WARDS' | translate}}" name="wards">
+                            <mat-error *ngIf="form.get('wards').invalid">
+                                <span *ngIf="form.get('wards').errors?.required">
+                                    {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                        <div fxLayout="row" fxLayoutGap="80px">
+                            <!-- Tên người đại diện hợp pháp -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="representativeName" matInput readonly
+                                    placeholder="{{'RELEASE_REGISTRATION.LEGAL_REPRESENTATIVE_NAME' | translate}}"
+                                    name="representativeName">
+                                <mat-error *ngIf="form.get('representativeName').invalid">
+                                    <span *ngIf="form.get('representativeName').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                            <!-- Số điện thoại -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="representativePhone" matInput readonly
+                                    placeholder="{{'RELEASE_REGISTRATION.PHONE_NUMBER' | translate}}"
+                                    name="representativePhone">
+                                <mat-error *ngIf="form.get('representativePhone').invalid">
+                                    <span *ngIf="form.get('representativePhone').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <!-- Địa chỉ -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <input formControlName="representativeAddress" matInput readonly
+                                placeholder="{{'RELEASE_REGISTRATION.ADDRESS' | translate}}"
+                                name="representativeAddress">
+                            <mat-error *ngIf="form.get('representativeAddress').invalid">
+                                <span *ngIf="form.get('representativeAddress').errors?.required">
+                                    {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Form 2 -->
+                    <p class="p-title-form"> {{'RELEASE_REGISTRATION.INFORMATION_ISSUANCE_DOCUMENTS' | translate}}</p>
+                    <div class="form-content">
+
+                        <mat-form-field class="u-margin-0 u-width-100">
+                            <mat-label>{{'RELEASE_REGISTRATION.TAX_DEPARTMENT' | translate}} *</mat-label>
+                            <mat-select formControlName="taxPlace">
+                                <mat-option *ngFor="let item of listTaxPlace" [value]="item">
+                                    {{ item.code }} - {{ item.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div fxLayout="row" fxLayoutGap="80px">
+
+                            <!-- Năm sử dụng -->
+                            <mat-form-field class="u-margin-0 u-width-100">
+                                <mat-label>{{'RELEASE_REGISTRATION.YEAR_OF_USE' | translate}} *</mat-label>
+                                <mat-select formControlName="issueYear">
+                                    <mat-option *ngFor="let item of listOfYears" [value]="item">
+                                        {{item.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- Số quyết định -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="decisionNo" matInput
+                                    placeholder="{{'RELEASE_REGISTRATION.DECISION_NUMBER' | translate}} *"
+                                    name="decisionNo">
+                                <mat-error *ngIf="form.get('decisionNo').invalid">
+                                    <span *ngIf="form.get('decisionNo').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="80px">
+
+                            <!-- Mẫu số -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="pattern" matInput readonly
+                                    placeholder="{{'RELEASE_REGISTRATION.DENOMINATOR' | translate}} *" name="pattern">
+                                <mat-error *ngIf="form.get('pattern').invalid">
+                                    <span *ngIf="form.get('pattern').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Ký hiệu -->
+                            <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input formControlName="serial" matInput
+                                    placeholder="{{'RELEASE_REGISTRATION.SYMBOL' | translate}} *" name="serial"
+                                    style="text-transform:uppercase" (keydown.space)="$event.preventDefault();">
+                                <mat-error *ngIf="form.get('serial').invalid">
+                                    <span *ngIf="form.get('serial').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                    <span *ngIf="form.get('serial').errors?.pattern">
+                                        Tối đa 2 ký tự in hoa thuộc tập hợp 20 ký tự sau (A, B, C, D, E, G, H, K, L,
+                                        M, N, P, Q, R, S, T, U, V, X, Y) </span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutGap="80px">
+
+                            <!-- Số lượng -->
+                            <!-- <mat-form-field flex class="u-margin-0 u-width-100">
+                                <input type="number" formControlName="issueAmount" matInput
+                                    placeholder="{{'RELEASE_REGISTRATION.AMOUNT' | translate}} *" name="issueAmount">
+                                <mat-error *ngIf="form.get('issueAmount').invalid">
+                                    <span *ngIf="form.get('issueAmount').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field> -->
+
+                            <mat-form-field class="u-margin-0 u-width-100">
+                                <mat-label>{{'RELEASE_REGISTRATION.AMOUNT' | translate}} *</mat-label>
+                                <mat-select formControlName="issueAmount">
+                                    <mat-option *ngFor="let item of listIssueAmount" [value]="item">
+                                        {{ item.amount }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <!-- Số bắt đầu -->
+                            <mat-form-field fxFlex="calc(50% - 40px)" flex class="u-margin-0">
+                                <input type="number" formControlName="issueFrom" matInput
+                                    placeholder="{{'RELEASE_REGISTRATION.STARTING_NUMBER' | translate}} *"
+                                    name="issueFrom">
+                                <mat-error *ngIf="form.get('issueFrom').invalid">
+                                    <span *ngIf="form.get('issueFrom').errors?.required">
+                                        {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutGap="80px">
+                            <div fxFlex="50"></div>
+                        </div>
+                    </div>
+
+                    <!-- form 3-->
+                    <!-- <p>Skills</p>
+
+                    <table id="skills">
+                        <tr>
+                            <td rowspan="2">STT</td>
+                            <td rowspan="2">Loại biên lai phí, lệ phí</td>
+                            <td rowspan="2">Tồn đầu ký trước</td>
+                            <td rowspan="2">Số lượng mua kỳ trước</td>
+                            <td colspan="5">Sử dụng trong kỳ</td>
+                            <td rowspan="2">Còn cuối kỳ</td>
+                            <td rowspan="2">Số lượng mua kỳ này</td>
+                            <td rowspan="2"></td>
+                        </tr>
+                        <tr>
+                            <th>Sử dụng</th>
+                            <th>Xóa bỏ</th>
+                            <th>Mất</th>
+                            <th>Hủy</th>
+                            <th>Cộng</th>
+                        </tr>
+                        <tbody formArrayName="skills" id="skills">
+                            <tr *ngFor="let skill of skills.controls; let i=index" [formGroupName]="i">
+                                <td>
+                                    <div class="u-margin-0" [style.width.rem]=4>
+                                        <p>{{i}}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="skill" matInput name="skill">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=8>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <mat-form-field class="u-margin-0" [style.width.rem]=5>
+                                        <input formControlName="exp" matInput name="exp">
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <button mat-icon-button (click)="removeSkill(i)">
+                                        <mat-icon>delete_sweep</mat-icon>
+                                    </button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button mat-icon-button (click)="addSkills()">
+                        <mat-icon>add</mat-icon> Thêm mới
+                    </button> -->
+                </form>
+            </div>
+
+            <div mat-dialog-actions fxLayout="row" fxLayoutAlign="flex-end center">
+                <!-- <button style="margin-right: 8px;" class="btn-main" mat-raised-button (click)="release()"
+                    aria-label="RELEASE">
+                    <mat-icon class="icon-btn">send</mat-icon>
+                    {{'CONTROL.ISSUE' | translate}}
+                </button> -->
+                <button style="margin-right: 10px;" class="btn-main" mat-raised-button (click)="save($event)"
+                    aria-label="SAVE">
+                    <mat-icon class="icon-btn">save</mat-icon>
+                    {{'CONTROL.SAVE_DRAFT' | translate}}
+                </button>
+                <button class="btn-close" mat-raised-button (click)="close()" aria-label="CLOSE">
+                    <mat-icon class="icon-btn">close</mat-icon>
+                    {{'CONTROL.CLOSE' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / CONTENT CARD -->
+<!-- / CENTER -->

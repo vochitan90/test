@@ -1,0 +1,27 @@
+<div id="createTaxIncome" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <div class="dialog-content-wrapper content">
+            <div class="center">
+                <div class="header mat-accent-bg" fxLayout="row" fxLayoutAlign="space-between center">
+                    <div style="padding-bottom: 10px; padding-top: 10px;" fxLayout="row" fxLayoutAlign="start center">
+                        <button mat-icon-button class="mr-0 mr-sm-16" (click)="close()">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                        <div fxLayout="column" fxLayoutAlign="start start">
+                            <div class="h3">
+                                {{'TAXINCOME.CREATE_PAGE_TITLE' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <app-tax-income-view [action]="action.CREATE"></app-tax-income-view>
+        </div>
+    </div>
+</div>

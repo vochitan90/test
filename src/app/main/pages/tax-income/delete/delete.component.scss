@@ -1,0 +1,29 @@
+#deleteTaxIncome {
+    width: 43vw;
+    display: flex;
+    flex-direction: column;
+
+    .content-delete {
+        padding: 10px;
+
+        .content-text {
+            padding: 9px;
+
+            textarea {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid gray;
+            }
+
+        }
+
+        .upload-content {
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .icon-require {
+            color: red;
+        }
+    }
+}

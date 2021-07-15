@@ -1,0 +1,17 @@
+@import 'src/@fuse/scss/fuse';
+
+#reportListOfUsage {
+    .form-usage {
+        padding: 16px;
+
+        mat-label {
+            font-weight: bold;
+        }
+
+        .header {
+            display: flex;
+            gap: 70px;
+        }
+    }
+
+}

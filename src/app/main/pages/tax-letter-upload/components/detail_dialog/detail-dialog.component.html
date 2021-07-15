@@ -1,0 +1,188 @@
+<div class="dialog-content-wrapper content account-detail-dialog" id="taxincomeLetterDetailDialog">
+    <div class="center">
+        <mat-toolbar matDialogTitle class="mat-accent m-0">
+            
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="h2 u-padding-16-left">
+                    {{'TAXINCOME_LETTER_UPLOAD.VIEW_UPLOAD_PERIOD' | translate}}
+                </div>
+                <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="content-card mat-white-bg form-container">
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+            <div style="padding: 0px; margin: 5px 0px 0px 0px;">
+                <ul class="title-info">
+                    <li>
+                        {{data?.fileName}}
+                        <button matTooltip="{{'CONTROL.DOWNLOAD' | translate}}" class="u-color-main" mat-icon-button
+                            (click)="downloadTemplate()">
+                            <mat-icon class="icon-btn">download</mat-icon>
+                        </button>
+                    </li>
+                    <li>
+                        <span style="padding-right: 10px; padding-top: 10px;">{{'TAXINCOME_LETTER_UPLOAD.STATUS_UPLOAD' |
+                            translate}}: <span [ngStyle]="{'color': getStyleStatusText()}">{{statusText}}</span></span>
+                        <span style="padding-right: 10px; padding-top: 10px;"></span>
+                    </li>
+                    <li>
+                        <span style="padding-right: 10px; padding-top: 10px;">{{'TAXINCOME_LETTER_UPLOAD.RESULT_OK' |
+                            translate}}: </span>
+                        <span style="padding-right: 10px; padding-top: 10px;"><span
+                                class="u-color-main">{{content?.successCount}}</span> / {{content?.totalCount}}</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div *ngIf="lstFail.length > 0" class="content-card mat-white-bg "> -->
+            <mat-expansion-panel *ngIf="lstFail.length > 0" hideToggle=false expanded=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="icon-btn-fail">remove_circle</mat-icon> 
+                        <span>{{'TAXINCOME_LETTER_UPLOAD.RESULT_UPLOAD' | translate}} không hợp lệ ({{lstFail.length}})</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <table id="tableUploadFail">
+                    <tr>
+                        <th>
+                            {{'TAXINCOME_LETTER_UPLOAD.ERROR' | translate}}</th>
+                        <th style="width: 20px;">{{'TAXINCOME_LETTER_UPLOAD.ROW' | translate}}</th>
+
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMPLOYEE_CODE' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMPLOYEE_NAME' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.JOB_TILTLE' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.TAX_CODE' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.CONTRACT_NO' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.CONTRACT_DATE' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.VN_WORK_DATE' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_PAY_FROM_DATE' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_PAY_TO_DATE' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INCOME_TOTAL' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INCOME_VN' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INCOME_FOREIGN' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_IMCOME_FOREIGN_WITH_HELD' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_TAX_INCOME_WITH_HELD' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INSURANCE_WITH_HELD' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_OTHER_WITH_HELD' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_RENT' | translate}}</th>
+                        <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_PAY_YEAR' | translate}}</th>
+
+                    </tr>
+                    <!-- <pre>{{lstFail | json}}</pre> -->
+                    <tr *ngFor="let fail of lstFail">
+                        <td [innerHtml]="fail?.exceptionContentExt"></td>
+                        <td>{{fail?.content?.rowIndex}}</td>
+                        <td>{{fail?.content?.empCode}}</td>
+                        <td>{{fail?.content?.empName}}</td>
+                        <td>{{fail?.content?.empJobtile}}</td>
+                        <td>{{fail?.content?.empTaxcode}}</td>
+                        <td>{{fail?.content?.contractNo}}</td>
+                        <td>{{fail?.content?.contractDate | date:'yyyy-MM-dd'}}</td>
+                        <td>{{fail?.content?.vietnamWorkDate | date:'yyyy-MM-dd'}}</td>
+
+                        <td>{{fail?.content?.empPayFromDate | date:'yyyy-MM-dd'}}</td>
+                        <td>{{fail?.content?.empPayToDate | date:'yyyy-MM-dd'}}</td>
+                        <td>{{fail?.content?.empIncomeTotal}}</td>
+                        <td>{{fail?.content?.empIncomeVietnam}}</td>
+                        <td>{{fail?.content?.empIncomeForeign}}</td>
+                        <td>{{fail?.content?.empIncomeForeignWithheld}}</td>
+                        <td>{{fail?.content?.empTaxincomeWithheld}}</td>
+                        <td>{{fail?.content?.empInsuranceWithheld}}</td>
+
+                        <td>{{fail?.content?.empOtherWithheld}}</td>
+                        <td>{{fail?.content?.empRent}}</td>
+                        <td>{{fail?.content?.empPayYear}}</td>
+                    </tr>
+                </table>
+            </mat-expansion-panel>
+            <!-- </div> -->
+            <mat-expansion-panel *ngIf="lstSuccess.length > 0" hideToggle=false expanded=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon class="icon-btn-success">check_circle</mat-icon> 
+                        <span>{{'TAXINCOME_LETTER_UPLOAD.RESULT_UPLOAD' | translate}} hợp lệ ({{lstSuccess.length}})</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngIf="lstSuccess.length > 0" class="content-card mat-white-bg ">
+                    <table id="tableUploadSuccess">
+                        <tr>
+                            <th></th>
+                            <th style="width: 150px;">{{'TAXINCOME_LETTER_UPLOAD.STATUS' | translate}}</th>
+                            <th style="width: 20px;">{{'TAXINCOME_LETTER_UPLOAD.ROW' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMPLOYEE_CODE' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMPLOYEE_NAME' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.JOB_TILTLE' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.TAX_CODE' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.CONTRACT_NO' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.CONTRACT_DATE' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.VN_WORK_DATE' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_PAY_FROM_DATE' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_PAY_TO_DATE' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INCOME_TOTAL' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INCOME_VN' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INCOME_FOREIGN' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_IMCOME_FOREIGN_WITH_HELD' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_TAX_INCOME_WITH_HELD' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_INSURANCE_WITH_HELD' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_OTHER_WITH_HELD' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_RENT' | translate}}</th>
+                            <th>{{'TAXINCOME_LETTER_UPLOAD.EMP_PAY_YEAR' | translate}}</th>
+                            
+                        </tr>
+                        <!-- <pre>{{lstSuccess | json}}</pre> -->
+                        <tr *ngFor="let success of lstSuccess" (click)="selectedRecord(success)">
+                            <td>
+                                <input *ngIf="success?.status !== 2" style="width: 15px; height: 15px;" type="checkbox" [checked]="success.checked">
+                            </td>
+                            <td>{{getCurrentDetailStatusOfRecord(success?.status)}}</td>
+                            <td>{{success?.content?.rowIndex}}</td>
+                            <td>{{success?.content?.empCode}}</td>
+                            <td>{{success?.content?.empName}}</td>
+                            <td>{{success?.content?.empJobtile}}</td>
+                            <td>{{success?.content?.empTaxcode}}</td>
+                            <td>{{success?.content?.contractNo}}</td>
+                            <td>{{success?.content?.contractDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{success?.content?.vietnamWorkDate | date:'yyyy-MM-dd'}}</td>
+
+                            <td>{{success?.content?.empPayFromDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{success?.content?.empPayToDate | date:'yyyy-MM-dd'}}</td>
+                            <td>{{success?.content?.empIncomeTotal}}</td>
+                            <td>{{success?.content?.empIncomeVietnam}}</td>
+                            <td>{{success?.content?.empIncomeForeign}}</td>
+                            <td>{{success?.content?.empIncomeForeignWithheld}}</td>
+                            <td>{{success?.content?.empTaxincomeWithheld}}</td>
+                            <td>{{success?.content?.empInsuranceWithheld}}</td>
+
+                            <td>{{success?.content?.empOtherWithheld}}</td>
+                            <td>{{success?.content?.empRent}}</td>
+                            <td>{{success?.content?.empPayYear}}</td>
+                            
+                        </tr>
+                    </table>
+                </div>
+            </mat-expansion-panel>
+        </div>
+
+        <div mat-dialog-actions class="m-0 sticky-bottom" fxLayout="row" style="background-color: white;"
+                fxLayoutAlign="flex-end center">
+                <!-- <button class="btn-danger" mat-raised-button (click)="cancel()" aria-label="cancel">
+                    <mat-icon class="icon-btn">cancel</mat-icon>
+                    {{'CONTROL.CANCEL' | translate}}
+                </button>
+                <button mat-raised-button class="btn-main" (click)="export()" aria-label="file_download">
+                    <mat-icon class="icon-btn">file_download</mat-icon>
+                    {{'CONTROL.EXPORT' | translate}}
+                </button> -->
+                <button class="btn-main" mat-raised-button (click)="send()" aria-label="issue"
+                    *ngIf="lstSuccess.length > 0" [disabled]="this.data.status == 4">
+                    <mat-icon class="icon-btn">send</mat-icon>
+                    {{'CONTROL.ISSUE' | translate}}
+                </button>
+                <button class="btn-close" mat-raised-button (click)="matDialogRef.close(false)" aria-label="CLOSE">
+                    <mat-icon class="icon-btn">close</mat-icon>
+                    {{'CONTROL.CLOSE' | translate}}
+                </button>
+            </div>
+    </div>

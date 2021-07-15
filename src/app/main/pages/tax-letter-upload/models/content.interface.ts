@@ -1,0 +1,32 @@
+export interface IContentDetail {
+    // contractDate: number;
+    // contractExpiredDate: number;
+    // bpbEmpLevel: string;
+    // contractNo: string;
+    // bpbIdIssueDate: number;
+    // bpbJoinDate: number;
+    // contractPlace: string;
+    // contractSigndate: number;
+    // contractEffectiveDate: number;
+    // bpaAuthStatus: string;
+    // bpaRepresentativeName: string;
+    // bpbEmpSalary: number;
+    // bpbEmpPosition: string;
+    // makerId: string;
+    // companyCode: string;
+    // bpbEmpName: string;
+    // bpbContactEmail: string;
+    // bpaRepresentativePosition: string;
+    // bpbBirthDate: number;
+    // bpaCompanyAddress: string;
+    // bpbIdIssuePlace: string;
+    // bpbContactPhone: string;
+    // bpbAuthStatus: string;
+    // companyId: number;
+    // bpaCompanyName: string;
+    // bpaCompanyPhone: string;
+    // bpbEmpCode: string;
+    // bpbIdNumber: string;
+    id: number;
+    checked?: boolean;
+}

@@ -1,0 +1,31 @@
+<div class="dialog-content-wrapper content" id="iframeViewPdf">
+    <!-- <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">
+                Xem file trước khi in
+            </span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar> -->
+    
+    <iframe *ngIf="_previewUrl" class="border" [src]="_previewUrl" id="viewfile" class="iframe" name="viewfile"></iframe>
+    
+    <div class="m-0 list-button" mat-dialog-actions fxLayout="row" fxLayoutAlign="flex-end center">
+        <!-- <button style="margin-right: 10px;" class="btn-main" mat-raised-button (click)="downloadFile()" aria-label="DOWNLOAD">
+            <mat-icon class="icon-btn">file_download</mat-icon>
+            {{'CONTROL.DOWNLOAD' | translate}}
+        </button> -->
+        <!-- <button class="btn-main" mat-raised-button (click)="print()" aria-label="PRINT">
+            <mat-icon class="icon-btn">print</mat-icon>
+            {{'CONTROL.PRINT' | translate}}
+        </button> -->
+
+        <button class="btn-close" mat-raised-button (click)="matDialogRef.close(false)" aria-label="CLOSE">
+            <mat-icon class="icon-btn">close</mat-icon>
+            {{'CONTROL.CLOSE' | translate}}
+        </button>
+    </div>
+</div>
+

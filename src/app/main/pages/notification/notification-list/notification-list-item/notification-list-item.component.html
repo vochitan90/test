@@ -1,0 +1,48 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+
+    <!-- <mat-checkbox [(ngModel)]="
+    selected" (ngModelChange)="onSelectedChange()" (click)="$event.stopPropagation();">
+    </mat-checkbox> -->
+
+    <div class="info" fxFlex FlexLayout="column">
+
+        <div class="row-1" fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="name" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+                <span [ngClass]="!mail.isReaded ? 'unbold_text': 'bold_text'" class="text-truncate" *ngIf="mail?.from">{{mail.from}}</span>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <div class="time">{{mail.time}}</div>
+
+            </div>
+
+        </div>
+
+        <div class="row-2" fxLayout="row" fxLayoutAlign="start center">
+
+            <div fxLayout="column" fxLayoutAlign="start start">
+
+                <div [ngClass]="!mail.isReaded ? 'unbold_text': 'bold_text'" class="subject text-truncate">
+                    {{mail.title}}
+                </div>
+
+                <!-- <div class="message text-truncate" *ngIf="mail?.message">
+                    {{mail.title | htmlToPlaintext | slice:0:180}}{{mail.title.length > 180 ? '...' : ''}}
+                </div> -->
+
+                <!-- <div class="labels" fxLayout="row wrap" fxHide fxShow.gt-sm>
+                    <div class="label" *ngFor="let labelId of mail.labels" fxLayout="row" fxLayoutAlign="start center">
+                        <div class="label-color" [ngStyle]="{'background-color': labels | getById:labelId:'color'}"></div>
+                        <div class="label-title">{{labels | getById:labelId:'title'}}</div>
+                    </div>
+                </div> -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

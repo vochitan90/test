@@ -1,0 +1,52 @@
+<div class="dialog-content-wrapper content">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{'CONTROL.CHANGE_PASS' | translate }}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" style="padding-bottom: 0px !important;" fusePerfectScrollbar>
+        <form class="novalidate" [formGroup]="changePassForm">
+            <div style="padding-bottom: 10px;" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <button (click)="viewpass()" matSuffix mat-icon-button>
+                        <mat-icon class="mr-12 s-20 secondary-text">{{iconCurrent}}</mat-icon>
+                    </button>
+                    <input #passwordCurrent name="passwordCurrent" formControlName="passwordCurrent" matInput type="password"
+                        placeholder="{{'CHANGE_PASS_PAGE.CURRENT_PASSWORD' | translate }}">
+                    <mat-error *ngIf="changePassForm.get('passwordCurrent').touched && changePassForm.get('passwordCurrent').hasError('required')">
+                        {{'LOGIN.PASS_WORD_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="changePassForm.get('passwordCurrent').touched && !changePassForm.get('passwordCurrent').hasError('required') &&
+                    changePassForm.get('passwordCurrent').hasError('minlength')">
+                        {{'CHANGE_PASS_PAGE.MIN_LENGTH_PASSWORD' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <button (click)="viewpass2()" matSuffix mat-icon-button>
+                        <mat-icon class="mr-12 s-20 secondary-text">{{iconNew}}</mat-icon>
+                    </button>
+                    <input #passwordNew name="passwordNew" formControlName="passwordNew" matInput type="password"
+                        placeholder="{{'CHANGE_PASS_PAGE.NEW_PASSWORD' | translate }}">
+                    <mat-error *ngIf="changePassForm.get('passwordNew').hasError('required')">
+                        {{'LOGIN.PASS_WORD_REQUIRED' | translate }}
+                    </mat-error>
+                    <mat-error *ngIf="!changePassForm.get('passwordNew').hasError('required') &&
+                    changePassForm.get('passwordNew').hasError('minlength')">
+                        {{'CHANGE_PASS_PAGE.MIN_LENGTH_PASSWORD' | translate }}
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-spinner-button style="width: 100%; height: 40px;" class="submit-button" aria-label="Change pass" (click)="changePass()"
+            [options]="spinnerButtonOptions"></mat-spinner-button>
+    </div>
+</div>

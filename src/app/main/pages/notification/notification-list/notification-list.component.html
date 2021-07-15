@@ -1,0 +1,9 @@
+<div *ngIf="notifications.length === 0" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+    <span class="no-messages-text hint-text">{{ 'MAIL.NO_MESSAGES' | translate }}</span>
+</div>
+
+<div *ngIf="notifications.length > 0" class="mail-list">
+    <notification-list-item matRipple *ngFor="let mail of notifications" [mail]="mail" (click)="readMail(mail)"
+        [ngClass]="{'current-mail mat-accent-50-bg':mail?.id === currentNotificaion?.id}">
+    </notification-list-item>
+</div>

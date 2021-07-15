@@ -1,0 +1,247 @@
+<div class="dialog-content-wrapper content" id="issueRegistryUploadDialog">
+    <div class="center">
+
+        <mat-toolbar matDialogTitle class="mat-accent m-0">
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title"> {{'ISSUE_REGISTRY.UPLOAD_TITLE' | translate}}</span>
+                <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="content-card mat-white-bg ag-theme-material-paging">
+            <mat-progress-bar *ngIf="_store.isLoading" mode="indeterminate"></mat-progress-bar>
+            <div class="attach-file">
+                <form [formGroup]="form" (ngSubmit)="upload()">
+                    <!-- Tên tổ chức trả thu nhập -->
+                    <mat-form-field class="u-margin-0 u-width-100">
+                        <mat-label>{{'RELEASE_REGISTRATION.ORGANIZATION_PAYING_INCOME' | translate}} *</mat-label>
+                        <mat-select (selectionChange)="onChangeGetIssusRegistryActiveByBu($event)" formControlName="organizationPayingIncome">
+                            <mat-option [value]="-1">--- Chọn ---</mat-option>
+                            <mat-option *ngFor="let item of listBU" [value]="item">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!-- Lấy danh sách thông tin đăng ký phát hành dựa trên BU by buId -->
+                    <!-- <pre>{{listIssueRegistryByBu | json}}</pre> -->
+                    <mat-form-field class="u-margin-0 u-width-100">
+                        <mat-label>{{'ISSUE_REGISTRY.ISSUE_REGISTRY_ACTIVE_BY_BU' | translate}} *</mat-label>
+                        <mat-select (selectionChange)="getTaxAndFileSigned($event)" formControlName="issusRegistryActiveByBu">
+                            <mat-option *ngFor="let item of listIssueRegistryByBu" [value]="item">
+                                {{ item.registryInfo }}
+                            </mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="form.get('issusRegistryActiveByBu').invalid">
+                            <span
+                                *ngIf="form.get('issusRegistryActiveByBu').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error> -->
+
+                        <!-- <mat-error *ngIf="form.get('issusRegistryActiveByBu').hasError('required')">
+                            You must make a selection
+                          </mat-error> -->
+                    </mat-form-field>
+
+                    <!-- Chi cục thuế -->
+                    <mat-form-field class="u-margin-0 u-width-100">
+                        <mat-label>{{'ISSUE_REGISTRY.TAX_PLACE' | translate}} *</mat-label>
+                        <mat-select formControlName="taxPlace" [disabled]="true">
+                            <mat-option *ngFor="let item of listTaxPlace" [value]="item">
+                                {{ item.code }} - {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <p class="title-attachment">
+                        <mat-icon>insert_drive_file</mat-icon> TÀI LIỆU ĐÍNH KÈM</p>
+                    <div class="u-margin-2 u-width-100 u-padding-bt single-file">
+                        <mat-label>
+                            <span>1) Tờ khai đăng ký phát hành chứng từ * <span
+                                    style="color: red; font-weight: normal; font-style: italic;">
+                                    {{'ISSUE_REGISTRY.SUPPORT_ONLY_FILE' | translate}}.pdf</span>
+                            </span>
+                        </mat-label>
+                        <!-- <file-upload simple minsize="10KB" maxsize="10 MB" accept=".pdf" animation="true"
+                            formControlName="files1">
+                            <ng-template let-file #placeholder>
+                                <ng-container *ngIf="file; else emptyList">
+                                    {{ file.name }}
+                                </ng-container>
+
+                                <ng-template #emptyList>
+                                    Chọn 1 file ...
+                                </ng-template>
+                            </ng-template>
+
+                            <ng-template let-control="control" #button>
+                                Tải file <mat-icon class="icon-btn">upload</mat-icon>
+                            </ng-template>
+                        </file-upload> -->
+
+                        <div class="single-file" *ngIf="fileSignedName !== ''">
+                            <span class="icon-file">
+                                <mat-icon>description</mat-icon>
+                            </span>
+                            <span style="line-height: 40px; font-size: 16px;" class="file-info">
+                                <span class="file-name">
+                                    <strong><a (click)="viewFile()">{{fileSignedName}}</a></strong>
+                            </span>
+                            </span>
+                            <!-- <span class="remove-btn"
+                                style="cursor: pointer;opacity: 0.7;">
+                                <mat-icon
+                                    style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                    file_download</mat-icon>
+                                Tải file
+                            </span> -->
+                        </div>
+                    </div>
+
+                    <!-- file upload -->
+                    <!-- <mat-label>Tờ khai đăng ký phát hành chứng từ (PDF) *</mat-label>
+                    <file-upload [multiple]="false" minsize="10KB" maxsize="10 MB" accept=".pdf" animation="true" formControlName="files1">
+                        <ng-template let-i="index" let-file="file" let-control="control" #item>
+                            <div [style.padding]="i!== 0 ? ' 18px 0 0' : ''">
+                                <div class="icon-file">
+                                    <mat-icon *ngIf="file.isDownload">
+                                        insert_drive_file</mat-icon>
+                                    <mat-icon *ngIf="!file.isDownload">description
+                                    </mat-icon>
+                                </div>
+    
+                                <div style="cursor: pointer;opacity: 0.8;" class="file-info">
+                                    <span class="file-name">{{ file.name }} {{ formatBytes(file?.size) }}</span>
+                                </div>
+                                <div class="file-buttons" style="display: flex;gap: 10px;">
+                                    <span *ngIf="allowUpload" (click)="removeFile(control,file,i)" class="remove-btn"
+                                    <span (click)="removeFile1(control,file,i)" class="remove-btn"
+
+                                        style="cursor: pointer;opacity: 0.7;">
+                                        <mat-icon
+                                            style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                            delete</mat-icon>
+                                        Xóa
+                                    </span>
+                                    <span (click)="downloadResource(file)" *ngIf="file.isDownload" class="remove-btn"
+                                        style="cursor: pointer;opacity: 0.7;">
+                                        <mat-icon
+                                            style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                            file_download</mat-icon>
+                                        Tải file
+                                    </span>
+                                </div>
+                            </div>
+    
+                        </ng-template>
+                    </file-upload> -->
+
+
+                    <!-- other file upload 2-->
+                    <div class="u-margin-2 u-width-100 u-padding-bt">
+                        <mat-label>
+                            <span>2) Biễu mẫu (chứng từ, thư xác nhận thu nhập, báo cáo)
+                                <span style="color: red; font-weight: normal; font-style: italic;">
+                                    {{'ISSUE_REGISTRY.SUPPORT_ONLY_FILE' | translate}}.pdf</span>
+                            </span>
+                        </mat-label>
+                        <file-upload [multiple]="false" animation="true" minsize="10KB" maxsize="10 MB" accept=".pdf"
+                            animation="true" formControlName="files2">
+
+                            <ng-template let-i="index" let-file="file" let-control="control" #item>
+                                <div [style.padding]="i!== 0 ? ' 18px 0 0' : ''">
+                                    <div class="icon-file">
+                                        <mat-icon *ngIf="file.isDownload">
+                                            insert_drive_file</mat-icon>
+                                        <mat-icon *ngIf="!file.isDownload">description
+                                        </mat-icon>
+                                    </div>
+
+                                    <div style="cursor: pointer;opacity: 0.8;" class="file-info">
+                                        <span class="file-name">{{ file.name }} {{ formatBytes(file?.size) }}</span>
+                                    </div>
+                                    <div class="file-buttons" style="display: flex;gap: 10px;">
+                                        <span (click)="removeFile2(control,file,i)" class="remove-btn"
+                                            style="cursor: pointer;opacity: 0.7;">
+                                            <mat-icon
+                                                style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                                delete</mat-icon>
+                                            Xóa
+                                        </span>
+                                        <!-- <span (click)="downloadResource(file)" *ngIf="file.isDownload" class="remove-btn"
+                                        style="cursor: pointer;opacity: 0.7;">
+                                        <mat-icon
+                                            style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                            file_download</mat-icon>
+                                        Tải file
+                                    </span> -->
+                                    </div>
+                                </div>
+
+                            </ng-template>
+
+                        </file-upload>
+
+                    </div>
+
+
+                    <!-- other file upload 2-->
+                    <div class="u-margin-2 u-width-100 u-padding-bt">
+                        <mat-label>
+                            3) Văn bản, giấy tờ khác <span style="color: red; font-weight: normal; font-style: italic;">
+                            {{'ISSUE_REGISTRY.SUPPORT_ONLY_FILE' | translate}}.pdf, .doc, .docx, .jpg, .png
+                        </span>
+                    </mat-label>
+                    <file-upload [multiple]="false" minsize="10KB" maxsize="10 MB" accept=".pdf,.doc,.docx,.png,.jpg"
+                        animation="true" formControlName="files3">
+                        <ng-template let-i="index" let-file="file" let-control="control" #item>
+                            <div [style.padding]="i!== 0 ? ' 18px 0 0' : ''">
+                                <div class="icon-file">
+                                    <mat-icon *ngIf="file.isDownload">
+                                        insert_drive_file</mat-icon>
+                                    <mat-icon *ngIf="!file.isDownload">description
+                                    </mat-icon>
+                                </div>
+
+                                <div style="cursor: pointer;opacity: 0.8;" class="file-info">
+                                    <span class="file-name">{{ file.name }} {{ formatBytes(file?.size) }}</span>
+                                </div>
+                                <div class="file-buttons" style="display: flex;gap: 10px;">
+                                    <span (click)="removeFile3(control,file,i)" class="remove-btn"
+                                        style="cursor: pointer;opacity: 0.7;">
+                                        <mat-icon
+                                            style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                            delete</mat-icon>
+                                        Xóa
+                                    </span>
+                                    <!-- <span (click)="downloadResource(file)" *ngIf="file.isDownload" class="remove-btn"
+                                        style="cursor: pointer;opacity: 0.7;">
+                                        <mat-icon
+                                            style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                            file_download</mat-icon>
+                                        Tải file
+                                    </span> -->
+                                </div>
+                            </div>
+
+                        </ng-template>
+                    </file-upload>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <div mat-dialog-actions class="m-0 sticky-bottom list-button" fxLayout="row" fxLayoutAlign="flex-end center">
+            <button class="btn-main" mat-raised-button (click)="upload()" aria-label="CLOSE" [disabled]="!this.form.valid">
+                <mat-icon class="icon-btn">upload</mat-icon>
+                {{'CONTROL.UPLOAD_LETTER' | translate}}
+            </button>
+            <button class="btn-close" mat-raised-button (click)="matDialogRef.close(false)" aria-label="CLOSE">
+                <mat-icon class="icon-btn">close</mat-icon>
+                {{'CONTROL.CLOSE' | translate}}
+            </button>
+        </div>
+    </div>
+</div>

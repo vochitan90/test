@@ -1,0 +1,334 @@
+<div id="taxIncomeView">
+    <div class="content-card mat-white-bg ag-theme-material-paging">
+        <p class="title"> THÔNG TIN TỔ CHỨC TRẢ THU NHẬP</p>
+        <div class="org-info padding-common">
+            <div class="block left">
+                <!-- <div class="content">
+                    <span>Tên tổ chức trả thu nhập:</span>
+                    <span class="font-weight-bold">Công ty TNHH ABC</span>
+                </div> -->
+                <div class="content">
+                    <span>Tên tổ chức trả thu nhập:</span>
+                    <span class="flex-grow-1">
+                        <select id="buId" [disabled]="readonly" [(ngModel)]="selectedOrg" tabindex="1"
+                            class="input w-250px" (ngModelChange)="orgChange($event)">
+                            <option value="-1">-- Chọn --</option>
+                            <option *ngFor="let org of listOrg" [(value)]="org.id">
+                                {{org.code}} - {{org.name}}
+                            </option>
+                        </select>
+                    </span>
+                </div>
+                <div class="content">
+                    <span class="w-80px">Mã số thuế:</span>
+                    <span class="text-bold">
+                        <span class="tax-unit-group">
+
+                            <span class="tax-unit"> {{taxincome?.buTaxcode?.charAt(0)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(1)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(2)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(3)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(4)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(5)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(6)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(7)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(8)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome?.buTaxcode?.charAt(9)||'&nbsp;'}}</span>
+                        </span>
+                        <span style="padding-left: 20px" class="tax-unit-group">
+                            <span class="tax-unit">{{taxincome.buTaxcode?.charAt(10)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome.buTaxcode?.charAt(11)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome.buTaxcode?.charAt(12)||'&nbsp;'}}</span>
+                            <span class="tax-unit">{{taxincome.buTaxcode?.charAt(13)||'&nbsp;'}}</span>
+                        </span>
+                    </span>
+                </div>
+                <div class="content">
+                    <span class="w-80px">Địa chỉ:</span>
+                    <span class="flex-grow-1">
+                        <input id='address' tabindex="1" nullValue class="input" [(ngModel)]="taxincome.buAddress"
+                            readonly>
+                    </span>
+                </div>
+                <div class="content">
+                    <span class="w-80px">Điện thoại:</span>
+                    <span class="flex-grow-1">
+                        <input tabindex="2" nullValue class="input" [(ngModel)]="taxincome.buPhone" readonly>
+                    </span>
+                </div>
+            </div>
+            <div class="block">
+                <div class="content">
+                    <span class="font-weight-bold w-55px">Mẫu số:</span>
+                    <span class="flex-grow-1">
+                        <select id="pattern" [disabled]="readonly" tabindex="3" [(ngModel)]="selectedPattern"
+                            class="input w-250px" (ngModelChange)="patternChange($event)">
+                            <option *ngIf="listPattern.length>1" value="-1">-- Chọn --</option>
+                            <option *ngFor="let pattern of listPattern">
+                                {{pattern}}
+                            </option>
+                        </select>
+                    </span>
+                </div>
+                <div class="content">
+                    <span class="font-weight-bold w-55px">Ký hiệu:</span>
+                    <span class="flex-grow-1">
+                        <select id="serial" [disabled]="readonly" tabindex="4" [(ngModel)]="selectedSerial"
+                            class="input w-250px">
+                            <option *ngIf="listSerial.length > 1" value="-1">-- Chọn --</option>
+                            <option *ngFor="let serial of listSerial">
+                                {{serial}}
+                            </option>
+                        </select>
+                    </span>
+                </div>
+                <div class="content">
+                    <span class="font-weight-bold w-55px">Số:</span>
+                    <span *ngIf="taxincome.taxincomeNo">
+                        <input tabindex="5" [value]="taxincome.taxincomeNo" class="input" readonly>
+                    </span>
+                    <span *ngIf="!taxincome.taxincomeNo">
+                        <input tabindex="5" [value]="'Chờ cấp số'" class="input" readonly>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <p class="title"> THÔNG TIN NGƯỜI NỘP THUẾ</p>
+        <div class="flex-column padding-common">
+            <div class="block">
+                <div class="content">
+                    <span>Họ và tên <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empName" [readonly]="readonly" tabindex="6" class="input"
+                            [(ngModel)]="taxincome.empName">
+                    </span>
+                </div>
+                <div class="content">
+                    <span class="w-80px">Mã số thuế:</span>
+                    <span class="flex-grow-1">
+                        <input id="empTaxcode" maxlength="14" tabindex="7" (keypress)="numberOnly($event)"
+                            [readonly]="readonly" placeholder="XXXXXXXXXX-XXX (10 hoặc 14 kí tự)"
+                            [(ngModel)]="taxincome.empTaxcode" onCopy="return false" onDrag="return false"
+                            onDrop="return false" onPaste="return false" autocomplete=off class="input w-100-124px">
+                    </span>
+                </div>
+                <div class="content">
+                    <span>Quốc tịch <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empNationality" [readonly]="readonly" tabindex="8" class="input"
+                            [(ngModel)]="taxincome.empNationality">
+                    </span>
+                </div>
+                <div class="content">
+                    <mat-radio-group [disabled]="readonly" [(ngModel)]="taxincome.empIsResident" tabindex="9"
+                        aria-label="Select an option">
+                        <mat-radio-button [value]="1">Cá nhân cư trú</mat-radio-button>
+                        <mat-radio-button [value]="0">Cá nhân không cư trú</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="content">
+                    <span>Địa chỉ liên hệ <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empContactAddress" [readonly]="readonly" tabindex="10" class="input"
+                            [(ngModel)]="taxincome.empContactAddress">
+                    </span>
+                </div>
+                <div class="content">
+                    <span>Điện thoại liên hệ <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empContactPhone" [readonly]="readonly" tabindex="11" class="input"
+                            [(ngModel)]="taxincome.empContactPhone">
+                    </span>
+                </div>
+                <span class="title-not-taxCode">Trường hợp không có mã số thuế thì ghi thông tin cá nhân theo 3
+                    chỉ tiêu dưới đây:</span>
+                <div class="content">
+                    <span>Số CMND/CCCD/Passport:</span>
+                    <span class="flex-grow-1">
+                        <input (keypress)="preventSpace($event)" [minLength]="8"
+                            oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);"
+                            [maxLength]="12" id="empIdno" [readonly]="readonly" tabindex="12" class="input"
+                            [(ngModel)]="taxincome.empIdno">
+                    </span>
+                </div>
+                <div class="cmnd-info">
+                    <div class="content left">
+                        <span>Nơi cấp :</span>
+                        <span class="flex-grow-1">
+                            <input id="empIdnoIssuedPlace" [readonly]="readonly" tabindex="13" class="input"
+                                [(ngModel)]="taxincome.empIdnoIssuedPlace">
+                        </span>
+                    </div>
+                    <div class="content right">
+                        <span>Ngày cấp</span>
+                        <div class="flex-grow-1">
+                            <input id="empIdnoIssuedDate" tabindex="14" class="empIdnoIssuedDate" #idnoIssuedDate
+                                matInput dateInput [matDatepicker]="pickerDate" [valueDefaultDate]="empIdnoIssuedDate"
+                                (changeNewDate)="dateChange($event)" (dateChange)="dateChange($event)">
+                            <mat-datepicker-toggle matSuffix [for]="pickerDate"></mat-datepicker-toggle>
+                            <mat-datepicker #pickerDate></mat-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="title">THÔNG TIN THUẾ THU NHẬP CÁ NHÂN KHẤU TRỪ</p>
+        <div class="flex-column padding-common">
+            <div class="block">
+                <div class="content">
+                    <span>Khoản thu nhập <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empIncomeType" [readonly]="readonly" tabindex="15" class="input"
+                            [(ngModel)]="taxincome.empIncomeType">
+                    </span>
+                </div>
+                <div class="content">
+                    <span>Thời điểm trả thu nhập <span class="icon-require">(*)</span>:</span>
+                    <div class="content">
+                        <span>Năm:</span>
+                        <span class="flex-grow-1">
+                            <select id="empPayYear" [disabled]="readonly" [(ngModel)]="taxincome.empPayYear"
+                                tabindex="16" class="input w-250px">
+                                <option *ngFor="let item of listPayYear" [(value)]="item.code">
+                                    {{item.name}}
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="content">
+                        <span>từ tháng:</span>
+                        <span class="flex-grow-1">
+                            <select id="empPayFromMonth" [disabled]="readonly" [(ngModel)]="taxincome.empPayFromMonth"
+                                tabindex="17" class="input w-250px">
+                                <option *ngFor="let item of listPayMonth" [(value)]="item.code">
+                                    {{item.name}}
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="content">
+                        <span>đến tháng:</span>
+                        <span class="flex-grow-1">
+                            <select id="empPayToMonth" [disabled]="readonly" [(ngModel)]="taxincome.empPayToMonth"
+                                tabindex="18" class="input w-250px">
+                                <option *ngFor="let item of listPayMonth" [(value)]="item.code">
+                                    {{item.name}}
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="content">
+                    <span>Tổng thu nhập chịu thuế phải khấu trừ <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empTaxincomeWithheld" [readonly]="readonly"
+                            (onInputChange)="iNumberChange($event, 'empTaxincomeWithheld', null,null)" inumber
+                            tabindex="19" class="input" type="text" [value]="empTaxincomeWithheld">
+                    </span>
+                </div>
+                <div class="content">
+                    <span>Tổng thu nhập tính thuế <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empTaxincomeCalculation" [readonly]="readonly"
+                            (onInputChange)="iNumberChange($event, 'empTaxincomeCalculation', null,null)" inumber
+                            tabindex="20" class="input" type="text" [value]="empTaxincomeCalculation">
+                    </span>
+                </div>
+                <div class="content">
+                    <span>Số thuế thu nhập cá nhân đã khấu trừ <span class="icon-require">(*)</span>:</span>
+                    <span class="flex-grow-1">
+                        <input id="empPersonaltaxWithheld" [readonly]="readonly"
+                            (onInputChange)="iNumberChange($event, 'empPersonaltaxWithheld', null,null)" inumber
+                            tabindex="21" class="input" type="text" [value]="empPersonaltaxWithheld">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="taxincome.status === TAX_INCOME_STATUS.CANCEL ">
+            <p class="title">GHI CHÚ KHI HỦY CHỨNG TỪ</p>
+            <div class="padding-common note-cancel">- {{taxincome.note? taxincome.note:'Không có ghi chú'}}</div>
+        </div>
+        <div class="attach-file" *ngIf="action === actionType.REPLACE||(resourceDtos.length>0)">
+            <p class="title">BIÊN BẢN ĐÍNH KÈM</p>
+            <form [formGroup]="form">
+                <file-upload [disabled]="true" formControlName="files" accept=".docx,.doc,.pdf"
+                    [multiple]="multipleUpload" animation="true">
+                    <ng-template let-i="index" let-file="file" let-control="control" #item>
+                        <div [style.padding]="i!== 0 ? ' 18px 0 0' : ''">
+                            <div class="icon-file">
+                                <mat-icon *ngIf="file.isDownload">
+                                    insert_drive_file</mat-icon>
+                                <mat-icon *ngIf="!file.isDownload">description
+                                </mat-icon>
+                            </div>
+
+                            <div style="cursor: pointer;opacity: 0.8;" class="file-info">
+                                <span class="file-name">{{ file.name }} {{ formatBytes(file?.size) }}</span>
+                            </div>
+                            <div class="file-buttons" style="display: flex;gap: 10px;">
+                                <span *ngIf="allowUpload" (click)="removeFile(control,file,i)" class="remove-btn"
+                                    style="cursor: pointer;opacity: 0.7;">
+                                    <mat-icon
+                                        style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                        delete</mat-icon>
+                                    Xóa
+                                </span>
+                                <span (click)="downloadResource(file)" *ngIf="file.isDownload" class="remove-btn"
+                                    style="cursor: pointer;opacity: 0.7;">
+                                    <mat-icon
+                                        style="display: inline-block;vertical-align: -20%;height: 18px;width: 18px;">
+                                        file_download</mat-icon>
+                                    Tải file
+                                </span>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </file-upload>
+            </form>
+
+        </div>
+
+    </div>
+    <div class="list-button" mat-dialog-actions fxLayout="row" fxLayoutAlign="flex-end center">
+        <button [disabled]="store.isLoading" *ngIf="showButtonIssue 
+        &&(taxincome.status === TAX_INCOME_STATUS.NEW||taxincome.status===TAX_INCOME_STATUS.REPLACE)" class="btn-main"
+            mat-raised-button (click)="issue($event)" aria-label="ISSUE">
+            <mat-icon class="icon-btn">send</mat-icon>
+            {{'CONTROL.ISSUE'|translate}}
+        </button>
+        <button [disabled]="store.isLoading" *ngIf="action === actionType.UPDATE" class="btn-main" mat-raised-button
+            (click)="update($event)" aria-label="EDIT">
+            <mat-icon class="icon-btn">edit</mat-icon>
+            {{'CONTROL.EDIT'|translate}}
+        </button>
+        <button [disabled]="store.isLoading" *ngIf="haveFilePDFTaxIncome" class="btn-edit" mat-raised-button
+            aria-label="PRINT" (click)="preview()">
+            <mat-icon class="icon-btn">print</mat-icon>
+            {{'CONTROL.PRINT_TAX_INCOME'|translate}}
+        </button>
+        <button [disabled]="store.isLoading" *ngIf="action === actionType.CREATE" class="btn-main" mat-raised-button
+            aria-label="SAVE" (click)="save($event)">
+            <mat-icon class="icon-btn">save</mat-icon>
+            {{'CONTROL.SAVE_DRAFT'|translate}}
+        </button>
+        <ng-container *ngIf="action === actionType.REPLACE">
+            <!-- <button [disabled]="store.isLoading" class="btn-main" mat-raised-button aria-label="SAVE"
+                (click)="clone($event)">
+                <mat-icon class="icon-btn">save</mat-icon>
+                {{'CONTROL.SAVE_DRAFT'|translate}}
+            </button> -->
+            <button [disabled]="store.isLoading" class="btn-main" mat-raised-button (click)="replace($event)"
+                aria-label="REPLACE">
+                <mat-icon class="icon-btn">find_replace</mat-icon>
+                {{'TAXINCOME.REPLACEMENT_CONFIRMATION'|translate}}
+            </button>
+        </ng-container>
+
+    </div>
+</div>
+
+
+<!-- / CONTENT CARD -->
+<!-- / CENTER -->

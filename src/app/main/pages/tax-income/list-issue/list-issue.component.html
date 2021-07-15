@@ -1,0 +1,57 @@
+<div id="listTaxIncomeIssue" class="page-layout carded fullwidth inner-scroll" *mobxAutorun>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header mat-accent-bg" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px">
+                <span class="logo-text h3">
+                    {{'TAXINCOME.LIST_PAGE_TITLE' | translate}} {{pivotCountOnTitle}}
+                </span>
+                <div>
+                    <mat-select class="select-search-bar" [(ngModel)]="store.selectedBuIdIssue"
+                        (ngModelChange)="refresh()">
+                        <mat-option *ngIf="listBU.length > 1" [value]="-1">
+                            - Chọn tổ chức trả thu nhập -
+                        </mat-option>
+                        <mat-option *ngFor="let item of listBU" [value]="item.id">
+                            {{item.code}} - {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <!-- TODO: *ngIf="store.permissions.create" -->
+            <div class="tool-bar" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="end center">
+                <fuse-search-bar [text]="store.fullText" [collapsed]="!store.isFullTextSearchModeContract"
+                    (input)="fullTextSearch($event)" (close)="changeNormalSearch()"></fuse-search-bar>
+                <button mat-icon-button matTooltip="{{'CONTROL.REFRESH'|translate}}" class="tool-bar-button"
+                    (click)="refresh()">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="{{'CONTROL.REPLACE'|translate}}" class="tool-bar-button"
+                    [disabled]="getRowSelectedLength()!==1" (click)="replace()">
+                    <mat-icon>find_replace</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="{{'CONTROL.CANCEL'|translate}}"
+                    [disabled]="getRowSelectedLength()!==1" class="tool-bar-button" (click)="delete()">
+                    <mat-icon>delete_sweep</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="content-card mat-white-bg ag-theme-material-paging">
+            <mat-progress-bar *ngIf="store.isLoading" mode="indeterminate"></mat-progress-bar>
+            <ag-grid-angular class="ag-theme-material height-table-aggrid" [gridOptions]="gridOptions">
+            </ag-grid-angular>
+        </div>
+    </div>
+    <!-- / CONTENT CARD -->
+    <!-- / CENTER -->
+</div>

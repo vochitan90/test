@@ -1,0 +1,124 @@
+<div id="pdfSignedInfoDialog">
+    <div class="center">
+        <mat-toolbar matDialogTitle class="mat-accent m-0">
+
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="h2 u-padding-16-left">
+                    Xem thông tin chữ ký số
+                </div>
+                <button mat-icon-button (click)="_matDialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+
+    <div class="validate-cer-info content-card mat-white-bg ag-theme-material-paging">
+        <div class="cer-info">
+            <span class="font-weight-bold header-block">
+                <!-- <mat-icon class="icon-info">info</mat-icon> -->
+                {{'REGISTRY_TAXINCOME.INFO_CERT'|translate}}
+            </span>
+            <!-- Ký bởi doanh nghiệp -->
+            <div class="block">
+                <mat-icon class="icon-success">check_circle</mat-icon>
+                <span class="name"> {{'REGISTRY_TAXINCOME.SUBJECT_DN_CN'|translate}}:</span>
+                <span>{{certInfo?.subjectDN.CN }}</span>
+            </div>
+            <!-- Số serial -->
+            <div class="block">
+                <mat-icon class="icon-success">check_circle</mat-icon>
+                <span class="name"> {{'REGISTRY_TAXINCOME.SERIAL_NUMBER'|translate}}:</span>
+                <span>{{certInfo?.serialNumber }}</span>
+            </div>
+            <!-- Nhà cung cấp CA -->
+            <div class="block">
+                <mat-icon class="icon-success">check_circle</mat-icon>
+                <span class="name"> {{'REGISTRY_TAXINCOME.ISSUER_DN_CN'|translate}}:</span>
+                <span>{{certInfo?.issuerDN.CN }}</span>
+            </div>
+            <!-- Thời gian hiệu lực -->
+            <div class="block">
+                <mat-icon class="icon-success">check_circle</mat-icon>
+                <div class="name"> {{'REGISTRY_TAXINCOME.TIME_VALID'|translate}}:</div>
+                <div class="block-item">
+                    <span>{{'REGISTRY_TAXINCOME.NOT_BEFORE'|translate}}</span>
+                    <span class="font-weight-bold">
+                        {{certInfo?.notBefore | date : 'dd/MM/yyyy HH:mm:ss'}}
+                    </span>
+                    <br>
+                    <span>{{'REGISTRY_TAXINCOME.NOT_AFTER'|translate}}</span>
+                    <span class="font-weight-bold">
+                        {{certInfo?.notAfter | date : 'dd/MM/yyyy HH:mm:ss'}}
+                    </span>
+                </div>
+            </div>
+            <div style="margin: 4px;"></div>
+            <!-- Trạng thái chữ ký -->
+            <div class="block" [ngClass]="!isCertStatusGood?'error-content':''">
+                <mat-icon [ngClass]="!isCertStatusGood?'icon-error':'icon-success'">
+                    {{isCertStatusGood?'check_circle':'error'}}
+                </mat-icon>
+                <span class="name">{{'REGISTRY_TAXINCOME.CERT_STATUS'|translate}}:</span>
+                <span>
+                    {{'REGISTRY_TAXINCOME.CERT_STATUS_' + certInfo?.revocation?.certStatus
+                    |translate}}
+                </span>
+            </div>
+            <!-- Ngày thu hồi -->
+            <div class="block error-content" *ngIf="certInfo?.revocation?.revocationDate">
+                <mat-icon class="icon-error">
+                    error
+                </mat-icon>
+                <span class="name">
+                    {{'REGISTRY_TAXINCOME.REVOCATION_DATE'|translate}}:
+                </span>
+                <span>{{certInfo?.revocation?.revocationDate | date :
+                    "dd/MM/yyyy"}}</span>
+            </div>
+            <!-- Tải thông tin chứng thư số -->
+            <!-- <div class="block download-cer" (click)="getSellerSign()">
+                <mat-icon class="icon-success">file_download</mat-icon>
+                <span class="title-dowload-cer">{{'REGISTRY_TAXINCOME.DOWNLOAD_CERT_INFO'|translate}}</span>
+            </div> -->
+        </div>
+        <!-- Kết quả kiểm tra -->
+        <div class="validate">
+            <span class="header-block">
+                {{'REGISTRY_TAXINCOME.RESULT_VALID'|translate}}
+            </span>
+            <!-- MST đơn vị phát hành -->
+            <div class="block" [ngClass]="!isCertTaxCodeGood?'error-content':''">
+                <mat-icon [ngClass]="!isCertTaxCodeGood?'icon-error':'icon-success'" class="icon-success">
+                    {{isCertTaxCodeGood?'check_circle':'error'}}
+                </mat-icon>
+                <span *ngIf="isCertTaxCodeGood" class="name">
+                    {{'REGISTRY_TAXINCOME.TAXCODE_VALID'|translate}}
+                </span>
+                <span *ngIf="!isCertTaxCodeGood" class="name">
+                    {{certErrorText?.taxCode}}
+                </span>
+            </div>
+            <!-- Thời điểm ký -->
+            <div class="block">
+                <mat-icon class="icon-success">check_circle</mat-icon>
+                <span class="name">{{'REGISTRY_TAXINCOME.SIGN_DATE'|translate}}:</span>
+                <span class="sign-date">{{certInfo?.signDate | date :
+                    "dd/MM/yyyy"}}</span>
+            </div>
+            <!-- Chữ ký số còn hiệu lực -->
+            <div class="block" [ngClass]="isCertExpired?'error-content':''">
+                <mat-icon [ngClass]="isCertExpired?'icon-error':'icon-success'" class="icon-success">
+                    {{isCertExpired?'error':'check_circle'}}
+                </mat-icon>
+                <span *ngIf="!isCertExpired" class="name">
+                    {{'REGISTRY_TAXINCOME.SIGN_DATE_VALID'|translate}}
+                </span>
+                <!-- cert: EXPIRED  chữ ký số hết hạn (nếu còn hạn sẽ không có field này) -->
+                <span *ngIf="isCertExpired" class="name">
+                    {{certErrorText?.expired}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

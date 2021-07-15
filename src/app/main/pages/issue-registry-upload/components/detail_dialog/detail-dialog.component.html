@@ -1,0 +1,378 @@
+<div id="taxincomeLetterDetailDialog">
+    <div class="center" [formGroup]="form">
+        <mat-toolbar matDialogTitle class="mat-accent m-0">
+
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="h2 u-padding-16-left">
+                    {{'ISSUE_REGISTRY.VIEW_UPLOAD' | translate}}
+                </div>
+                <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div class="content-card mat-white-bg ag-theme-material-paging">
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+            <!-- Thông tin đơn vị phát hành -->
+            <mat-expansion-panel style="margin-top: 9px" hideToggle=false expanded=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="header-block">
+                            <p class="title">{{'REGISTRY_TAXINCOME.BU_INFO'|translate}}</p>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="info-taxincome">
+                    <!-- Tên tổ chức trả thu nhập -->
+                    <mat-form-field flex class="u-margin-0 u-width-100">
+                        <mat-label>{{'REGISTRY_TAXINCOME.BU_NAME'|translate}}</mat-label>
+                        <input formControlName="buName" matInput readonly
+                            placeholder="{{'ORG_INFO.ORGANIZATION_PAYING_INCOME' | translate}} *"
+                            name="organizationPayingIncome">
+                    </mat-form-field>
+                    <div fxLayout="row" fxLayoutGap="80px">
+                        <!-- Mã số thuế -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.BU_TAX_CODE'|translate}}</mat-label>
+                            <input formControlName="buTaxcode" matInput readonly
+                                placeholder="{{'ORG_INFO.TAX_CODE' | translate}} *" name="taxCode">
+                        </mat-form-field>
+                        <!-- Số điện thoại-->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.BU_PHONE'|translate}}</mat-label>
+                            <input formControlName="buPhone" matInput readonly
+                                placeholder="{{'ORG_INFO.PHONE_NUMBER' | translate}} *" name="buPhone">
+                        </mat-form-field>
+                        <!-- Email liên hệ-->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.BU_EMAIL'|translate}}</mat-label>
+                            <input formControlName="buEmail" matInput readonly
+                                placeholder="{{'ORG_INFO.BU_EMAIL' | translate}} *" name="buEmail">
+                        </mat-form-field>
+                    </div>
+                    <!-- Ngành nghề kinh doanh-->
+                    <mat-form-field flex class="u-margin-0 u-width-100">
+                        <mat-label>{{'REGISTRY_TAXINCOME.BU_MAJOR'|translate}}</mat-label>
+                        <input formControlName="buMajor" matInput readonly
+                            placeholder="{{'ORG_INFO.BUSINESS' | translate}} *" name="business">
+                    </mat-form-field>
+                    <!-- Địa chỉ-->
+                    <mat-form-field flex class="u-margin-0 u-width-100">
+                        <mat-label>{{'REGISTRY_TAXINCOME.BU_ADDRESS'|translate}}</mat-label>
+                        <input formControlName="buAddress" matInput readonly
+                            placeholder="{{'ORG_INFO.ADDRESS' | translate}} *" name="address">
+                    </mat-form-field>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Thông tin chứng từ phát hành -->
+            <mat-expansion-panel style="margin-top: 9px" hideToggle=false expanded=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="header-block">
+                            <p class="title">{{'REGISTRY_TAXINCOME.TAXINCOME_INFO'|translate}}</p>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="info-taxincome">
+                    <div fxLayout="row" fxLayoutGap="80px">
+                        <!-- Chi cục thuế -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.TAX_PLACE_NAME'|translate}}</mat-label>
+                            <input formControlName="taxPlaceName" matInput readonly name="taxPlaceName">
+                        </mat-form-field>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="80px">
+                        <!-- Năm phát hành -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.REGISTRY_YEAR'|translate}}</mat-label>
+                            <input formControlName="registryYear" matInput readonly name="registryYear">
+                        </mat-form-field>
+
+                        <!-- Số quyết định -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.DECISION_NO'|translate}}</mat-label>
+                            <input formControlName="decisionNo" matInput readonly name="decisionNo">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="80px">
+
+                        <!-- Mẫu số -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.BU_PATTERN'|translate}}</mat-label>
+                            <input formControlName="buPattern" matInput readonly name="buPattern">
+                        </mat-form-field>
+
+                        <!-- Ký hiệu -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.BU_SERIAL'|translate}}</mat-label>
+                            <input formControlName="buSerial" matInput readonly name="buSerial">
+                        </mat-form-field>
+
+                    </div>
+
+                    <div fxLayout="row" fxLayoutGap="80px">
+
+                        <!-- Số lượng -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.REGISTRY_AMOUNT'|translate}}</mat-label>
+                            <input formControlName="registryAmount" matInput readonly name="registryAmount">
+                        </mat-form-field>
+
+                        <!-- Số bắt đầu -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.REGISTRY_FROM'|translate}}</mat-label>
+                            <input formControlName="registryFrom" matInput readonly name="registryFrom">
+                        </mat-form-field>
+
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="80px">
+
+                        <!-- Số kết thúc -->
+                        <mat-form-field flex class="u-margin-0 u-width-100">
+                            <mat-label>{{'REGISTRY_TAXINCOME.REGISTRY_TO'|translate}}</mat-label>
+                            <input formControlName="registryTo" matInput readonly name="registryTo">
+                        </mat-form-field>
+
+                        <div fxFlex="50"></div>
+
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Lịch sử các lần xử lý-->
+            <mat-expansion-panel style="margin-top: 9px" *ngIf="taxincome" hideToggle=false expanded=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <!-- <mat-icon class="icon-btn-fail">remove_circle</mat-icon> 
+                        <span>{{'TAXINCOME_LETTER_UPLOAD.RESULT_UPLOAD' | translate}} không hợp lệ ({{lstFail.length}})</span> -->
+                        <div class="header-block">
+                            <p class="title">Lịch sử các lần xử lý</p>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngIf="taxincome" class="info-taxincome">
+                    <table id="tableHistory">
+                        <tr>
+                            <th style="width: 20px;">STT</th>
+                            <th>{{'ISSUE_REGISTRY.STATUS' | translate}}</th>
+                            <th>{{'ISSUE_REGISTRY.NOTE' | translate}}</th>
+                            <th>{{'ISSUE_REGISTRY.MAKER_DATE' | translate}}</th>
+                            <th>{{'ISSUE_REGISTRY.MAKER_ID' | translate}}</th>
+
+                        </tr>
+                        <!-- <pre>{{taxincome | json}}</pre> -->
+                        <tr *ngFor="let item of taxincome.pttbRegistrytaxHistories; let i = index"
+                            (click)="selectedRecord(item)">
+                            <td>{{i + 1}}</td>
+                            <td>{{getCurrentDetailStatusOfRecord(item?.status)}}</td>
+                            <td style="white-space: pre-line">{{item?.note}}</td>
+                            <td>{{item?.makerDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{item?.makerId}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </mat-expansion-panel>
+
+            <!-- Xác thực thông tin Chữ ký số tờ khai -->
+            <mat-expansion-panel style="margin-top: 9px" hideToggle=false expanded=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="header-block">
+                            <p class="title">{{'REGISTRY_TAXINCOME.VALID_INFO_CERT_TITLE'|translate}}</p>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="validate-cer-info ">
+                    <div class="cer-info">
+                        <span class="font-weight-bold header-block">
+                            <!-- <mat-icon class="icon-info">info</mat-icon> -->
+                            {{'REGISTRY_TAXINCOME.INFO_CERT'|translate}}
+                        </span>
+                        <!-- Ký bởi doanh nghiệp -->
+                        <div class="block">
+                            <mat-icon class="icon-success">check_circle</mat-icon>
+                            <span class="name"> {{'REGISTRY_TAXINCOME.SUBJECT_DN_CN'|translate}}:</span>
+                            <span>{{taxincome?.extValue?.cerInfo?.subjectDN.CN }}</span>
+                        </div>
+                        <!-- Số serial -->
+                        <div class="block">
+                            <mat-icon class="icon-success">check_circle</mat-icon>
+                            <span class="name"> {{'REGISTRY_TAXINCOME.SERIAL_NUMBER'|translate}}:</span>
+                            <span>{{taxincome?.extValue?.cerInfo?.serialNumber }}</span>
+                        </div>
+                        <!-- Nhà cung cấp CA -->
+                        <div class="block">
+                            <mat-icon class="icon-success">check_circle</mat-icon>
+                            <span class="name"> {{'REGISTRY_TAXINCOME.ISSUER_DN_CN'|translate}}:</span>
+                            <span>{{taxincome?.extValue?.cerInfo?.issuerDN.CN }}</span>
+                        </div>
+                        <!-- Thời gian hiệu lực -->
+                        <div class="block">
+                            <mat-icon class="icon-success">check_circle</mat-icon>
+                            <div class="name"> {{'REGISTRY_TAXINCOME.TIME_VALID'|translate}}:</div>
+                            <div class="block-item">
+                                <span>{{'REGISTRY_TAXINCOME.NOT_BEFORE'|translate}}</span>
+                                <span class="font-weight-bold">
+                                    {{taxincome?.extValue?.cerInfo?.notBefore | date : 'dd/MM/yyyy HH:mm:ss'}}
+                                </span>
+                                <br>
+                                <span>{{'REGISTRY_TAXINCOME.NOT_AFTER'|translate}}</span>
+                                <span class="font-weight-bold">
+                                    {{taxincome?.extValue?.cerInfo?.notAfter | date : 'dd/MM/yyyy HH:mm:ss'}}
+                                </span>
+                            </div>
+                        </div>
+                        <div style="margin: 4px;"></div>
+                        <!-- Trạng thái chữ ký -->
+                        <div class="block" [ngClass]="!isCertStatusGood?'error-content':''">
+                            <mat-icon [ngClass]="!isCertStatusGood?'icon-error':'icon-success'">
+                                {{isCertStatusGood?'check_circle':'error'}}
+                            </mat-icon>
+                            <span class="name">{{'REGISTRY_TAXINCOME.CERT_STATUS'|translate}}:</span>
+                            <span *ngIf="taxincome?.extValue?.cerInfo?.revocation?.certStatus">
+                                {{'REGISTRY_TAXINCOME.CERT_STATUS_' +
+                                taxincome?.extValue?.cerInfo?.revocation?.certStatus
+                                |translate}}
+                            </span>
+                        </div>
+                        <!-- Ngày thu hồi -->
+                        <div class="block error-content"
+                            *ngIf="taxincome?.extValue?.cerInfo?.revocation?.revocationDate">
+                            <mat-icon class="icon-error">
+                                error
+                            </mat-icon>
+                            <span class="name">
+                                {{'REGISTRY_TAXINCOME.REVOCATION_DATE'|translate}}:
+                            </span>
+                            <span>{{taxincome?.extValue?.cerInfo?.revocation?.revocationDate | date :
+                                "dd/MM/yyyy"}}</span>
+                        </div>
+                        <!-- Tải thông tin chứng thư số -->
+                        <div class="block download-cer" (click)="getSellerSign()">
+                            <mat-icon class="icon-success">file_download</mat-icon>
+                            <span class="title-dowload-cer">{{'REGISTRY_TAXINCOME.DOWNLOAD_CERT_INFO'|translate}}</span>
+                        </div>
+                    </div>
+                    <!-- Kết quả kiểm tra -->
+                    <div class="validate">
+                        <span class="font-weight-bold header-block">
+                            {{'REGISTRY_TAXINCOME.RESULT_VALID'|translate}}
+                        </span>
+                        <!-- MST đơn vị phát hành -->
+                        <div class="block" [ngClass]="!isCertTaxCodeGood?'error-content':''">
+                            <mat-icon [ngClass]="!isCertTaxCodeGood?'icon-error':'icon-success'" class="icon-success">
+                                {{isCertTaxCodeGood?'check_circle':'error'}}
+                            </mat-icon>
+                            <span *ngIf="isCertTaxCodeGood" class="name">
+                                {{'REGISTRY_TAXINCOME.TAXCODE_VALID'|translate}}
+                            </span>
+                            <span *ngIf="!isCertTaxCodeGood" class="name">
+                                {{certErrorText?.taxCode}}
+                            </span>
+                        </div>
+                        <!-- Thời điểm ký -->
+                        <div class="block">
+                            <mat-icon class="icon-success">check_circle</mat-icon>
+                            <span class="name">{{'REGISTRY_TAXINCOME.SIGN_DATE'|translate}}:</span>
+                            <span class="sign-date">{{taxincome?.extValue?.cerInfo?.signDate | date :
+                                "dd/MM/yyyy"}}</span>
+                        </div>
+                        <!-- Chữ ký số còn hiệu lực -->
+                        <div class="block" [ngClass]="isCertExpired?'error-content':''">
+                            <mat-icon [ngClass]="isCertExpired?'icon-error':'icon-success'" class="icon-success">
+                                {{isCertExpired?'error':'check_circle'}}
+                            </mat-icon>
+                            <span *ngIf="!isCertExpired" class="name">
+                                {{'REGISTRY_TAXINCOME.SIGN_DATE_VALID'|translate}}
+                            </span>
+                            <!-- cert: EXPIRED  chữ ký số hết hạn (nếu còn hạn sẽ không có field này) -->
+                            <span *ngIf="isCertExpired" class="name">
+                                {{certErrorText?.expired}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <span *ngIf="!taxincome?.extValue" class="no-info">{{'REGISTRY_TAXINCOME.NO_INFO'|translate}}</span>
+            </mat-expansion-panel>
+
+            <!-- Tài liệu đính kèm -->
+            <mat-expansion-panel style="margin-top: 9px" hideToggle=false expanded=true>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <div class="header-block">
+                            <p class="title">{{'REGISTRY_TAXINCOME.ATTACH_DOCUMENTS'|translate}}</p>
+                            <mat-icon>attach_file</mat-icon>
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="attach-file">
+                    <div class="block-file">
+                        <span class="title">1) {{'REGISTRY_TAXINCOME.FILE_REGISTRY'|translate}} </span>
+                        <span class="font-italic" *ngIf="listFileRegistry.length === 0">Không có file</span>
+                        <div class="file" *ngFor="let item of listFileRegistry" (click)="preview(item)">
+                            <div class="icon-file">
+                                <mat-icon>insert_drive_file</mat-icon>
+                            </div>
+                            <div class="file-info">
+                                <span class="file-name">{{ item.smtbResource.fileName }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-file">
+                        <span class="title">2) {{'REGISTRY_TAXINCOME.FILE_FORM'|translate}}</span>
+                        <span class="font-italic" *ngIf="listFileForm.length === 0">Không có file</span>
+                        <div class="file" *ngFor="let item of listFileForm" (click)="downloadResource(item)">
+                            <div class="icon-file">
+                                <mat-icon>insert_drive_file</mat-icon>
+                            </div>
+                            <div class="file-info">
+                                <span class="file-name">{{ item.smtbResource.fileName }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-file">
+                        <span class="title">3) {{'REGISTRY_TAXINCOME.FILE_OTHER'|translate}}</span>
+                        <span class="font-italic" *ngIf="listFileOther.length === 0">Không có file</span>
+                        <div class="file" *ngFor="let item of listFileOther" (click)="downloadResource(item)">
+                            <div class="icon-file">
+                                <mat-icon>insert_drive_file</mat-icon>
+                            </div>
+                            <div class="file-info">
+                                <span class="file-name">{{ item.smtbResource.fileName }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+
+        </div>
+
+
+
+        <div mat-dialog-actions class="m-0 sticky-bottom" fxLayout="row" style="background-color: white;"
+            fxLayoutAlign="flex-end center">
+            <!-- <button class="btn-danger" mat-raised-button (click)="cancel()" aria-label="cancel">
+                    <mat-icon class="icon-btn">cancel</mat-icon>
+                    {{'CONTROL.CANCEL' | translate}}
+                </button>
+                <button mat-raised-button class="btn-main" (click)="export()" aria-label="file_download">
+                    <mat-icon class="icon-btn">file_download</mat-icon>
+                    {{'CONTROL.EXPORT' | translate}}
+                </button> -->
+            <!-- <button class="btn-main" mat-raised-button (click)="send()" aria-label="issue"
+                    *ngIf="lstSuccess.length > 0">
+                    <mat-icon class="icon-btn">send</mat-icon>
+                    {{'CONTROL.ISSUE' | translate}}
+                </button> -->
+            <button class="btn-close" mat-raised-button (click)="matDialogRef.close(false)" aria-label="CLOSE">
+                <mat-icon class="icon-btn">close</mat-icon>
+                {{'CONTROL.CLOSE' | translate}}
+            </button>
+        </div>
+    </div>

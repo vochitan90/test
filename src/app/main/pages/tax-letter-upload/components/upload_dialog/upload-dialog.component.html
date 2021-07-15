@@ -1,0 +1,55 @@
+<div class="dialog-content-wrapper content" id="uploadTaxLetterDialog">
+
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title"> {{'TAXINCOME_LETTER_UPLOAD.UPLOAD_TITLE' | translate}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="content-card mat-white-bg ag-theme-material-paging">
+        <mat-progress-bar *ngIf="_store.isLoading" mode="indeterminate"></mat-progress-bar>
+        <form [formGroup]="form">
+
+            <!-- Thông tin tổ chức -->
+
+            <!-- Tên tổ chức trả thu nhập -->
+            <mat-form-field class="u-margin-0 u-width-100">
+                <mat-label>{{'RELEASE_REGISTRATION.ORGANIZATION_PAYING_INCOME' | translate}} *</mat-label>
+                <mat-select formControlName="organizationPayingIncome">
+                    <mat-option *ngFor="let item of listBU" [value]="item">
+                        {{ item.code + ' - ' + item.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- file upload -->
+            <mat-label>Chọn thư: <span style="color: red; font-weight: normal; font-style: italic;">{{'TAXINCOME_LETTER_UPLOAD.SUPPORT_ONLY_FILE' |
+                translate}}.xlsx</span>
+            </mat-label>
+            <file-upload minsize="10KB" maxsize="10 MB" accept=".xlsx" animation="true" formControlName="file">
+            </file-upload>
+
+            <mat-error *ngIf="form.get('file').invalid">
+                <span *ngIf="form.get('file').errors?.fileTypes">Không đúng định dạng file!</span>
+                <span *ngIf="form.get('file').errors?.filesLimit">Vượt quá số lượng file cho phép!</span>
+                <span *ngIf="form.get('file').errors?.sizeRange">Kích thước file không phù hợp!</span>
+            </mat-error>
+    
+        </form>
+        
+    </div>
+
+    <div mat-dialog-actions class="m-0 list-button" fxLayout="row" fxLayoutAlign="flex-end center">
+        <button class="btn-main" mat-raised-button (click)="upload()" aria-label="CLOSE" [disabled]="!this.form.valid || !file">
+            <mat-icon class="icon-btn">upload</mat-icon>
+            {{'CONTROL.UPLOAD' | translate}}
+        </button>
+        <button class="btn-close" mat-raised-button (click)="matDialogRef.close(false)" aria-label="CLOSE">
+            <mat-icon class="icon-btn">close</mat-icon>
+            {{'CONTROL.CLOSE' | translate}}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="page-layout blank p-24">
+    <!-- <div class="custom-spinner" *ngIf="!isLoadIframeComplete" style="padding-left: 50%;">
+        <mat-spinner color="primary"></mat-spinner>
+    </div> -->
+    <div *ngIf="showIframe" style="width: 100%; height: 100%;border: none; background: white">
+        <iframe *ngIf="_previewUrl" style="width: 100%; height: 100%;border: none; background: white"
+          [src]="_previewUrl"></iframe>
+      </div>
+    <!-- <div *ngIf="!isLoadIframeComplete"> -->
+    <!-- <iframe *ngIf="_previewUrl" id="dialogFrameTemplateInvoice" #dialogFrameTemplateInvoice -->
+        <!-- style="height: 100%; width: 100%; border: none;" [src]="_previewUrl"></iframe> -->
+    <!-- </div> -->
+    <!-- <h2>{{'SAMPLE.HELLO' | translate}}</h2> -->
+    <!-- 
+    <app-menu-component></app-menu-component>
+    <board-component-main></board-component-main> -->
+    <!-- <app-grid-component></app-grid-component> -->
+    <!-- <div class="fab-container">
+        <button mat-fab class="fab-toggler" (click)="onToggleFab()">
+            <i style="color: white;" class="material-icons" [@fabToggler]="{value: fabTogglerState}">settings</i>
+        </button>
+        <div [@speedDialStagger]="buttons.length">
+            <button *ngFor="let btn of buttons" mat-mini-fab matTooltipPosition="left" matTooltip="{{btn.tooltip}}"
+                class="fab-secondary" color="secondary" aria-label="Button that displays a tooltip in various positions">
+                <i class="material-icons">{{btn.icon}}</i>
+            </button>
+        </div>
+    </div> -->
+
+</div>
+<!-- <app-menu-component></app-menu-component> -->

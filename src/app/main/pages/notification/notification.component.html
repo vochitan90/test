@@ -1,0 +1,27 @@
+<!-- <div id="mail" class="page-layout carded left-sidebar inner-scroll"> -->
+<div id="mail" class="page-layout carded fullwidth inner-scroll">
+
+    <div class="top-bg mat-accent-bg"></div>
+
+    <div class="center">
+
+        <div class="header" fxLayout="row" fxLayoutAlign="start center">
+            <div style="padding: 12px 0px 12px 0px;" class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                <div class="search mat-white-bg" flex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input [formControl]="searchInput" [placeholder]="'MAIL.SEARCH_PLACEHOLDER' | translate" fxFlex>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card mat-white-bg" [ngClass]="{'current-mail-selected':currentMail}">
+            <div class="content" fxLayout="row">
+                <notification-list fusePerfectScrollbar [scrollWindow]="false" style="overflow: scroll;" infiniteScroll
+                    [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50"
+                    (scrolled)="onScrollDown()" fxFlex></notification-list>
+                <notification-details fusePerfectScrollbar fxFlex></notification-details>
+            </div>
+        </div>
+    </div>
+
+</div>

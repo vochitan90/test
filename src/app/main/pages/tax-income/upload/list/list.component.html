@@ -1,0 +1,54 @@
+<div id="periodUploadGrid" class="page-layout carded fullwidth inner-scroll" *mobxAutorun>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header mat-accent-bg" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <span class="logo-text h3">
+                    {{'TAXINCOME.UPLOAD_PAGE_TITLE' | translate}} {{pivotCountOnTitle}}
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <div class="tool-bar" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="end center">
+                <fuse-search-bar [text]="store.fullText" [collapsed]="!store.isFullTextSearchModeContract"
+                    (input)="fullTextSearch($event)" (close)="changeNormalSearch()"></fuse-search-bar>
+                <button mat-icon-button matTooltip="{{'CONTROL.REFRESH'|translate}}" class="tool-bar-button"
+                    (click)="refresh()">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="{{'CONTROL.ADD'|translate}}" class="tool-bar-button"
+                    (click)="upload()">
+                    <mat-icon>upload</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="{{'CONTROL.DOWNLOAD_TEMPLATE'|translate}}" class="tool-bar-button"
+                    (click)="store.downloadTemplate()">
+                    <mat-icon>download</mat-icon>
+                </button>
+            </div>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card mat-white-bg ag-theme-material-paging">
+            <mat-progress-bar *ngIf="store.isLoading" mode="indeterminate"></mat-progress-bar>
+            <ag-grid-angular id="tableAccountContract" class="ag-theme-material height-table-aggrid"
+                [gridOptions]="gridOptions">
+            </ag-grid-angular>
+
+        </div>
+        <!-- grid view -->
+    </div>
+    <!-- / CONTENT CARD -->
+    <!-- / CENTER -->
+</div>

@@ -1,0 +1,164 @@
+<mat-toolbar id="toolbarCRM" style="height: 45px" [style.display]="isHiddenToolBar ? 'none': 'flex'"
+    class="p-0 mat-elevation-z1">
+
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+
+        <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="navbar-toggle-button" *ngIf="!hiddenNavbar && !rightNavbar"
+                (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button>
+
+            <div class="toolbar-separator" *ngIf="!hiddenNavbar && !rightNavbar" fxHide.gt-md></div>
+
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="horizontalNavbar">
+                <div class="logo ml-16">
+                    <img class="logo-icon" src="assets/images/logos/logo.svg">
+                </div>
+            </div>
+            <div>
+                <fuse-shortcuts></fuse-shortcuts>
+            </div>
+
+        </div>
+
+        <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <img class="avatar mr-0 mr-sm-16" src="assets/images/avatars/profile.jpg">
+                    <span class="username mr-12" fxHide fxShow.gt-sm>
+                        <span>{{ _appState?.appState?.fullName }}</span>
+                        <span>{{ _appState?.appState?.moreInfo?.agentId && (" (" + _appState.appState.moreInfo.agentId +
+                            ")") }}</span>
+                    </span>
+                    <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+                </div>
+            </button>
+
+            <mat-menu #userMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+
+                <button mat-menu-item (click)="showProfile()">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>{{'CONTROL.MY_PROFILE' | translate}}</span>
+                </button>
+                <button mat-menu-item (click)="changePass()">
+                    <mat-icon>vpn_key</mat-icon>
+                    <span>{{'CONTROL.CHANGE_PASS' | translate}}</span>
+                </button>
+                <!-- <button mat-menu-item (click)="setting()">
+                    <mat-icon>settings_applications</mat-icon>
+                    <span>{{'CONTROL.SETTINGS' | translate}}</span>
+                </button> -->
+
+                <button mat-menu-item class="" (click)="logout()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>{{'CONTROL.LOG_OUT' | translate}}</span>
+                </button>
+
+            </mat-menu>
+
+            <div class="toolbar-separator"></div>
+
+            <button [matMenuTriggerFor]="notificationMenu" (click)="openDiaglogNotification()" mat-button fxHide
+                fxShow.gt-xs class="language-button">
+                <mat-icon [matBadgeHidden]="badgeNumb <= 0" matBadge="{{badgeNumb}}" matBadgeColor="warn">
+                    notifications_none</mat-icon>
+            </button>
+
+            <mat-menu style="padding: 0px;" #notificationMenu="matMenu" [overlapTrigger]="false" class="w-400">
+                <div style="padding: 0px 16px 7px 16px; width: 100%; height: 30px;border-bottom: 1px solid #9e9e9e7d;">
+                    <span color="accent">
+                        Thông báo
+                    </span>
+                    <span (click)="viewAllNotification()" class="read-notification">Đánh
+                        dấu đã đọc</span>
+                </div>
+                <mat-nav-list *ngIf="notifications.length > 0"
+                    style="max-height: 312px; overflow: auto; padding-top: 0px;" fusePerfectScrollbar>
+                    <mat-list style="padding-top: 0px;" dense>
+
+                        <mat-list-item *ngFor="let noti of notifications; trackBy: trackByNotification"
+                            (click)="viewNotification(noti)">
+                            <h3 matLine [style.fontWeight]="isReaded(noti)"> {{noti.message}} </h3>
+                            <p style="padding-top: 5px;" matLine>
+                                <span>{{noti.user}} </span>
+                                <span style="float: right;">{{noti.time}} </span>
+                            </p>
+                            <mat-divider></mat-divider>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-nav-list>
+                <a [routerLink]="'/notification'" style="width: 100%;height: 30px;" mat-button color="accent">
+                    Xem tất cả thông báo
+                </a>
+            </mat-menu>
+            <div class="toolbar-separator"></div>
+
+            <!-- <fuse-search-bar (input)="search($event)"></fuse-search-bar>
+
+            <div class="toolbar-separator"></div> -->
+
+            <button mat-button fxHide fxShow.gt-xs class="language-button" [matMenuTriggerFor]="languageMenu">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <img class="flag mr-8" [src]="'assets/images/flags/'+selectedLanguage.flag+'.png'">
+                    <span class="iso text-uppercase">{{selectedLanguage.id}}</span>
+                </div>
+            </button>
+
+            <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">
+
+                <button mat-menu-item *ngFor="let lang of languages" (click)="setLanguage(lang)">
+                    <span fxLayout="row" fxLayoutAlign="start center">
+                        <img class="flag mr-16" [src]="'assets/images/flags/'+lang.flag+'.png'">
+                        <span class="iso">{{lang.title}}</span>
+                    </span>
+                </button>
+
+            </mat-menu>
+            <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
+            <!-- <button (click)="help($event)" mat-button fxHide fxShow.gt-xs class="language-button">
+                <mat-icon matBadgeColor="warn">
+                    help_outline</mat-icon>
+            </button>
+            <div class="toolbar-separator" fxHide fxShow.gt-xs></div> -->
+
+            <!-- <button mat-icon-button class="quick-panel-toggle-button" (click)="toggleSidebarOpen('quickPanel')"
+                aria-label="Toggle quick panel">
+                <mat-icon [matBadgeHidden]="badgeNumbPopUp <= 0" matBadge="{{badgeNumbPopUp}}" matBadgeColor="warn"
+                    class="icon">format_list_bulleted</mat-icon>
+
+            </button>
+
+            <div class="toolbar-separator" *ngIf="!hiddenNavbar && rightNavbar" fxHide fxShow.gt-xs></div>
+
+            <button mat-icon-button class="navbar-toggle-button" *ngIf="!hiddenNavbar && rightNavbar"
+                (click)="toggleSidebarOpen('navbar')" fxHide.gt-md>
+                <mat-icon class="secondary-text">menu</mat-icon>
+            </button> -->
+            <!-- <div (keydown.g.c)="doSomething()"></div> -->
+            <!-- <div class="toolbar-separator" fxShow.gt-xs></div>
+
+            <button mat-icon-button class="navbar-toggle-button" (click)="openApp()">
+                <mat-icon class="secondary-text">apps</mat-icon>
+            </button> -->
+
+        </div>
+
+    </div>
+    <div [style.visibility]=" showMultiApp === true ? 'visible' : 'hidden'" style="overflow: hidden;
+    top: 0px;
+    transition: height 0.1s ease 0s;
+    width: 350px;
+    z-index: 991;
+    position: absolute;
+    height: 501px;
+    margin-top: 57px;
+    max-height: calc(-65px + 100vh);
+    right: 0px;
+    margin-right: 0px;
+    visibility: hidden;">
+        <iframe style="border:none;width:100%;height:100%;" src="http://localhost:4200/"></iframe>
+    </div>
+</mat-toolbar>

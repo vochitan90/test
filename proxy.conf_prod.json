@@ -1,0 +1,75 @@
+{
+  "/api/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/i18n/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrcustomer/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrformio/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/dms/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrnotification/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrticket/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrsecmt/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrusprofile/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/crmticket/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrsupporter/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+  ,
+  "/mcrqtscmgt/*": {
+    "target": "https://qms.lcssoft.com.vn/gateway",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

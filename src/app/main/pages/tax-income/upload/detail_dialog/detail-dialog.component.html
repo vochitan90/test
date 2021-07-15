@@ -1,0 +1,167 @@
+<div class="dialog-content-wrapper content" id="detailUploadTaxIncome">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title"> {{'PROCESS_UPLOAD.VIEW_UPLOAD_PERIOD' | translate}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <div class="header">
+        <div class="block" style="cursor: pointer" (click)="downloadTemplate()">
+            <span class="title">{{'PROCESS_UPLOAD.FILE_TITLE' | translate}}:</span>
+            <div>
+                <span class="file-name">{{data?.fileName}}</span>
+                <button matTooltip="{{'CONTROL.DOWNLOAD' | translate}}" class="u-color-main" mat-icon-button>
+                    <mat-icon class="icon-btn">download</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="block">
+            <span class="title">{{'PROCESS_UPLOAD.STATUS_UPLOAD' | translate}}:</span>
+            <span [ngStyle]="{'color': getStyleStatusText()}">{{statusText}}</span>
+        </div>
+        <div class="block">
+            <span class="title">{{'PROCESS_UPLOAD.RESULT_OK' |
+                translate}}:</span>
+            <span><span class="u-color-main">{{content?.successCount}}</span> /
+                {{content?.totalCount}}</span>
+        </div>
+    </div>
+    <div class="content-card">
+        <mat-expansion-panel *ngIf="lstFail.length > 0" hideToggle=false expanded=true>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="title-expand">
+                        <mat-icon style="color: red">do_disturb_on</mat-icon>
+                        <div>
+                            {{'PROCESS_UPLOAD.RESULT_UPLOAD' | translate}} không hợp lệ ({{lstFail.length}})
+                        </div>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table id="tableUploadFail">
+                <tr>
+                    <th>
+                        {{'PROCESS_UPLOAD.ERROR' | translate}}</th>
+                    <th style="width: 20px;">{{'PROCESS_UPLOAD.ROW' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_CODE' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_NAME' | translate}}</th>
+
+                    <th>{{'TAXINCOME.EMP_CONTACT_ADDRESS' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_CONTACT_PHONE' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_INCOME_TYPE' | translate}}</th>
+
+                    <th>{{'TAXINCOME.EMP_TAX_CODE' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_NATIONALITY' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_IS_RESIDENT' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_TIME_PAY' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_PERSONALTAX_WITHHELD' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_TAXINCOME_CALCULATION' | translate}}</th>
+                    <th>{{'TAXINCOME.EMP_TAXINCOME_WITHHELD' | translate}}</th>
+                </tr>
+                <tr *ngFor="let fail of lstFail">
+                    <td [innerHtml]="fail?.exceptionContentExt"></td>
+                    <td>{{fail?.content?.rowIndex}}</td>
+                    <td>{{fail?.content?.empCode}}</td>
+                    <td>{{fail?.content?.empName}}</td>
+
+                    <td>{{fail?.content?.empContactAddress}}</td>
+                    <td>{{fail?.content?.empContactPhone}}</td>
+                    <td>{{fail?.content?.empIncomeType}}</td>
+
+                    <td>{{fail?.content?.empTaxcode}}</td>
+                    <td>{{fail?.content?.empNationality}}</td>
+                    <td>{{fail?.content?.empIsResident?'Có':'Không'}}</td>
+                    <td>{{fail?.content?.empTimePay}}</td>
+                    <td>{{fail?.content?.empPersonaltaxWithheld!==0?(fail?.content?.empPersonaltaxWithheld| number:
+                        '2.'):0}}</td>
+                    <td>{{fail?.content?.empTaxincomeCalculation!==0?(fail?.content?.empTaxincomeCalculation| number:
+                        '2.'):0}}</td>
+                    <td>{{fail?.content?.empTaxincomeWithheld!==0?(fail?.content?.empTaxincomeWithheld| number:
+                        '2.'):0}}</td>
+                </tr>
+            </table>
+        </mat-expansion-panel>
+        <!-- </div> -->
+        <mat-expansion-panel style="margin-top: 9px" *ngIf="lstSuccess.length > 0" hideToggle=false expanded=true>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div class="title-expand">
+                        <mat-icon style="color: #018747">check_circle</mat-icon>
+                        <div>
+                            {{'PROCESS_UPLOAD.RESULT_UPLOAD' | translate}} hợp lệ
+                            ({{lstSuccess.length}})
+                        </div>
+                    </div>
+
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="lstSuccess.length > 0" class="mat-white-bg ">
+                <table id="tableUploadSuccess">
+                    <tr>
+                        <th *ngIf="showCheckBoxAll">
+                            <input class="checkAll" [checked]="isCheckAll" (click)="checkAll()"
+                                style="width: 15px; height: 15px;" type="checkbox">
+                        </th>
+                        <th style="width: 150px;">{{'PROCESS_UPLOAD.STATUS' | translate}}</th>
+                        <th style="width: 20px;">{{'PROCESS_UPLOAD.ROW' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_CODE' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_NAME' | translate}}</th>
+
+                        <th>{{'TAXINCOME.EMP_CONTACT_ADDRESS' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_CONTACT_PHONE' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_INCOME_TYPE' | translate}}</th>
+
+                        <th>{{'TAXINCOME.EMP_TAX_CODE' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_NATIONALITY' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_IS_RESIDENT' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_TIME_PAY' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_PERSONALTAX_WITHHELD' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_TAXINCOME_CALCULATION' | translate}}</th>
+                        <th>{{'TAXINCOME.EMP_TAXINCOME_WITHHELD' | translate}}</th>
+                    </tr>
+                    <tr *ngFor="let success of lstSuccess" (click)="selectedRecord(success)">
+                        <td *ngIf="showCheckBoxAll">
+                            <input *ngIf="success.showCheckBox" style="width: 15px; height: 15px;" type="checkbox"
+                                [checked]="success.checked">
+                        </td>
+                        <td>{{'PROCESS_UPLOAD.DETAIL_STATUS_'+success?.status | translate}}</td>
+                        <td>{{success?.content?.rowIndex}}</td>
+                        <td>{{success?.content?.empCode}}</td>
+                        <td>{{success?.content?.empName}}</td>
+
+                        <td>{{success?.content?.empContactAddress}}</td>
+                        <td>{{success?.content?.empContactPhone}}</td>
+                        <td>{{success?.content?.empIncomeType}}</td>
+
+                        <td>{{success?.content?.empTaxcode}}</td>
+                        <td>{{success?.content?.empNationality}}</td>
+                        <td>{{success?.content?.empIsResident?'Có':'Không'}}</td>
+                        <td>{{success?.content?.empTimePay}}</td>
+                        <td>{{success?.content?.empPersonaltaxWithheld!==0?(success?.content?.empPersonaltaxWithheld|
+                            number:
+                            '2.'):0}}</td>
+                        <td>{{success?.content?.empTaxincomeCalculation!==0?(success?.content?.empTaxincomeCalculation|
+                            number:
+                            '2.'):0}}</td>
+                        <td>{{success?.content?.empTaxincomeWithheld!==0?(success?.content?.empTaxincomeWithheld|
+                            number:
+                            '2.'):0}}</td>
+                    </tr>
+                </table>
+            </div>
+        </mat-expansion-panel>
+    </div>
+    <div *ngIf="showCheckBoxAll" class="list-button" fxLayout="row" fxLayoutAlign="flex-end center">
+        <!-- <button class="btn-danger" mat-raised-button (click)="cancel()" aria-label="cancel">
+            <mat-icon class="icon-btn">cancel</mat-icon>
+            {{'CONTROL.CANCEL' | translate}}
+        </button> -->
+        <button class="btn-main" mat-raised-button [disabled]="loading" (click)="issue()" aria-label="send">
+            <mat-icon class="icon-btn">send</mat-icon>
+            {{'CONTROL.ISSUE' | translate}}
+        </button>
+    </div>
+</div>

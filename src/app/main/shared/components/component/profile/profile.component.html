@@ -1,0 +1,28 @@
+<div class="dialog-content-wrapper content">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{'CONTROL.MY_PROFILE' | translate }}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <form [formGroup]="contactForm">
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">person</mat-icon>
+                    <input name="fullName" formControlName="fullName" matInput type="fullName" placeholder="Họ và tên">
+                </mat-form-field>
+            </div>
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <mat-icon matPrefix class="mr-12 s-20 secondary-text">email</mat-icon>
+                    <input name="email" formControlName="email" matInput type="email" placeholder="Email">
+                </mat-form-field>
+            </div>
+
+        </form>
+    </div>
+</div>

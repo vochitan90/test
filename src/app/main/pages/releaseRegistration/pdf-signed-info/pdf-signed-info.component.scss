@@ -1,0 +1,82 @@
+#pdfSignedInfoDialog {
+    .validate-cer-info {
+        display: flex;
+        justify-content: space-between;
+
+        .header-block {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 15px;
+            margin: 6px 5px;
+        }
+
+        .icon-info {
+            color: #039be5;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-check {
+            color: #039be5;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-success {
+            color: green;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .icon-error {
+            color: red;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .error-content {
+            color: red;
+        }
+
+        .block {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .name {
+                font-weight: bold;
+            }
+
+            .block-item {
+                position: relative;
+                top: 10px;
+
+                .font-weight-bold {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .cer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .validate {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            .sign-date {
+                color: #039be5;
+                font-weight: bold;
+            }
+        }
+    }
+}

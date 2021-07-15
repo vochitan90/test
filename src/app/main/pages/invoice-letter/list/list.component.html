@@ -1,0 +1,56 @@
+<div id="invoice-letter" class="page-layout carded fullwidth inner-scroll" *mobxAutorun>
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header mat-accent-bg" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <span class="logo-text h3">
+                    {{'RELEASE_REGISTRATION.LIST_RELEASE_REGISTRATION' | translate}} {{pivotCountOnTitle}}
+                </span>
+            </div>
+
+            <div class="tool-bar" fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="end center">
+                <fuse-search-bar [text]="store.fullText" [collapsed]="!store.isFullTextSearchModeContract"
+                    (input)="fullTextSearch($event)" (close)="changeNormalSearch()"></fuse-search-bar>
+                <button mat-icon-button matTooltip="{{'CONTROL.REFRESH'|translate}}" class="tool-bar-button"
+                    (click)="refresh()">
+                    <mat-icon>refresh</mat-icon>
+                </button>
+
+                <!-- <button mat-icon-button (click)="openFilter()" matTooltip="Lọc dữ liệu">
+                    <mat-icon>filter_list</mat-icon>
+                </button> -->
+                <button mat-icon-button matTooltip="{{'CONTROL.ADD'|translate}}" class="tool-bar-button"
+                    (click)="add()">
+                    <mat-icon>add</mat-icon>
+                </button>
+                
+                <button mat-icon-button matTooltip="{{'CONTROL.EDIT'|translate}}" class="tool-bar-button"
+                    [disabled]="!store.isRowSelected || disableEditButton" (click)="edit()">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="{{'CONTROL.DELETE'|translate}}" [disabled]="!store.isRowSelected || disableEditButton"
+                    class="tool-bar-button" (click)="delete()">
+                    <mat-icon>delete_sweep</mat-icon>
+                </button>
+            </div>
+        </div>
+
+        <div class="content-card mat-white-bg ag-theme-material-paging">
+            <mat-progress-bar *ngIf="store.isLoading" mode="indeterminate"></mat-progress-bar>
+            <ag-grid-angular class="ag-theme-material height-table-aggrid" [gridOptions]="gridOptions">
+            </ag-grid-angular>
+        </div>
+    </div>
+    <!-- / CONTENT CARD -->
+    <!-- / CENTER -->
+</div>

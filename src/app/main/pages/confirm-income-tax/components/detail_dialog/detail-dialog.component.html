@@ -1,0 +1,264 @@
+<div class="dialog-content-wrapper content" id="detailConfirmIncomeTax">
+
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Thư xác nhận thu nhập</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="content-card mat-white-bg ag-theme-material-paging">
+        <mat-progress-bar *ngIf="_store.isLoading" mode="indeterminate"></mat-progress-bar>
+        <form [formGroup]="form"> 
+            <div class="form-content">
+
+                <!-- Tên tổ chức trả thu nhập -->
+                <!-- <mat-form-field class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <mat-label>{{'RELEASE_REGISTRATION.ORGANIZATION_PAYING_INCOME' | translate}} *</mat-label>
+                    <mat-select formControlName="organizationPayingIncome">
+                        <mat-option *ngFor="let item of listBU" [value]="item">
+                            {{ item.code + ' - ' + item.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+
+                <!-- <pre>{{listBU | json}}</pre> -->
+                <mat-form-field class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <mat-label>{{'RELEASE_REGISTRATION.ORGANIZATION_PAYING_INCOME' | translate}} *</mat-label>
+                    <input type="text"
+                           placeholder="Chọn tổ chức"
+                           aria-label="Number"
+                           matInput
+                           formControlName="organizationPayingIncome"
+                           [matAutocomplete]="auto">
+                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+                      <mat-option *ngFor="let item of filteredOptions | async" [value]="item">
+                        {{ item.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                
+                <!-- Xác nhận thu nhập năm -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="empPayYear" matInput
+                        placeholder="Xác nhận thu nhập năm *" name="empPayYear">
+                    <mat-error *ngIf="form.get('empPayYear').invalid">
+                        <span *ngIf="form.get('empPayYear').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Mã nhân viên -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="empCode" matInput placeholder="Mã nhân viên *" name="empCode">
+                    <mat-error *ngIf="form.get('empCode').invalid">
+                        <span *ngIf="form.get('empCode').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Họ và tên -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="empName" matInput placeholder="Họ và tên *" name="empName">
+                    <mat-error *ngIf="form.get('empName').invalid">
+                        <span *ngIf="form.get('empName').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Chức vụ -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="empJobtile" matInput placeholder="Chức vụ (Nếu có)" name="empJobtile">
+                    <mat-error *ngIf="form.get('empJobtile').invalid">
+                        <span *ngIf="form.get('empJobtile').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input dateInput matInput [matDatepicker]="arrivalDate" formControlName="vietnamWorkDate"
+                        placeholder="Ngày đến Việt Nam (được bổ nhiệm tới công tác tai Việt Nam)"
+                        (changeNewDate)="dateChange('vietnamWorkDate',$event)"
+                        (dateChange)="dateChange('vietnamWorkDate',$event)"
+                        [valueDefaultDate]="dataTemp.arrivalDate">
+                    <mat-datepicker-toggle matSuffix [for]="arrivalDate"></mat-datepicker-toggle>
+                    <mat-datepicker #arrivalDate></mat-datepicker>
+
+                    <mat-error *ngIf="form.get('vietnamWorkDate').invalid">
+                        <span *ngIf="form.get('vietnamWorkDate').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+                
+
+                <!-- Thu nhập từ và đến -->
+                <div fxLayout="row">
+                    <!-- Thu nhập từ ngày -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input dateInput matInput [matDatepicker]="fromDate" formControlName="empPayFromDate"
+                            placeholder="Thu nhập từ ngày *"
+                            (changeNewDate)="dateChangeFromDate('empPayFromDate',$event)"
+                            (dateChange)="dateChangeFromDate('empPayFromDate',$event)"
+                            >
+                        <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+                        <mat-datepicker #fromDate></mat-datepicker>
+
+                        <mat-error *ngIf="form.get('empPayFromDate').invalid && form.get('empPayFromDate').touched">
+                            <span *ngIf="form.get('empPayFromDate').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    
+                    <!-- Thu nhập đến ngày -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input dateInput matInput [matDatepicker]="toDate" formControlName="empPayToDate"
+                            placeholder="Thu nhập đến ngày *"
+                            (changeNewDate)="dateChange('empPayToDate',$event)"
+                            (dateChange)="dateChange('empPayToDate',$event)"
+                            >
+                        <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+                        <mat-datepicker #toDate></mat-datepicker>
+
+                        <mat-error *ngIf="form.get('empPayToDate').invalid && form.get('empPayToDate').touched">
+                            <span *ngIf="form.get('empPayToDate').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row">
+                    <!-- Số tiền (VND) -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input inumber formControlName="empIncomeTotal" matInput placeholder="Số tiền (VND)" name="empIncomeTotal">
+                        <mat-error *ngIf="form.get('empIncomeTotal').invalid">
+                            <span *ngIf="form.get('empIncomeTotal').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Tại Việt Nam (VND) -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input inumber formControlName="empIncomeVietnam" matInput placeholder="Tại Việt Nam (VND)" name="empIncomeVietnam">
+                        <mat-error *ngIf="form.get('empIncomeVietnam').invalid">
+                            <span *ngIf="form.get('empIncomeVietnam').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Tại nước ngoài (VND) -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input inumber formControlName="empIncomeForeign" matInput placeholder="Tại nước ngoài (VND)" name="empIncomeForeign">
+                        <mat-error *ngIf="form.get('empIncomeForeign').invalid">
+                            <span *ngIf="form.get('empIncomeForeign').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <!-- Các khoản bị khấu trừ ngoài Việt Nam (nếu có) - deductibles -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input inumber formControlName="empIncomeForeignWithheld" matInput
+                        placeholder="Các khoản bị khấu trừ ngoài Việt Nam (nếu có)" name="empIncomeForeignWithheld">
+                    <mat-error *ngIf="form.get('empIncomeForeignWithheld').invalid">
+                        <span *ngIf="form.get('empIncomeForeignWithheld').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Thuế thu nhập cá nhân - personalIncomeTax -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input inumber formControlName="empTaxincomeWithheld" matInput
+                        placeholder="Thuế thu nhập cá nhân" name="empTaxincomeWithheld">
+                    <mat-error *ngIf="form.get('empTaxincomeWithheld').invalid">
+                        <span *ngIf="form.get('empTaxincomeWithheld').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Bảo hiểm xã hội hoặc các loại bảo hiểm bắt buộc tương tự - insurance -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input inumber formControlName="empInsuranceWithheld" matInput
+                        placeholder="Bảo hiểm xã hội hoặc các loại bảo hiểm bắt buộc tương tự" name="empInsuranceWithheld">
+                    <mat-error *ngIf="form.get('empInsuranceWithheld').invalid">
+                        <span *ngIf="form.get('empInsuranceWithheld').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Các khoản bị khấu trừ khác - otherDeductions -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input inumber formControlName="empOtherWithheld" matInput
+                        placeholder="Các khoản bị khấu trừ khác" name="empOtherWithheld">
+                    <mat-error *ngIf="form.get('empOtherWithheld').invalid">
+                        <span *ngIf="form.get('empOtherWithheld').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Số tiền thuê nhà tại Việt Nam (VND) - empRent -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input inumber formControlName="empRent" matInput
+                        placeholder="Số tiền thuê nhà tại Việt Nam (VND)" name="empRent">
+                    <mat-error *ngIf="form.get('empRent').invalid">
+                        <span *ngIf="form.get('empRent').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row">
+
+                    <!-- Hợp đồng lao động số * laborContractNumber -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input formControlName="contractNo" matInput
+                            placeholder="Hợp đồng lao động số *" name="contractNo">
+                        <mat-error *ngIf="form.get('contractNo').invalid">
+                            <span *ngIf="form.get('contractNo').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Ngày hợp đồng dateContract -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input dateInput matInput [matDatepicker]="contractDate" formControlName="contractDate"
+                            placeholder="Ngày đến Việt Nam (được bổ nhiệm tới công tác tai Việt Nam)"
+                            (changeNewDate)="dateChange('contractDate',$event)"
+                            (dateChange)="dateChange('contractDate',$event)"
+                        >
+                        <mat-datepicker-toggle matSuffix [for]="contractDate"></mat-datepicker-toggle>
+                        <mat-datepicker #contractDate></mat-datepicker>
+
+                        <mat-error *ngIf="form.get('contractDate').invalid && form.get('contractDate').touched">
+                            <span *ngIf="form.get('contractDate').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+
+                    </mat-form-field>
+
+                </div>            
+            </div>
+        </form>
+    </div>
+
+    <div class="list-button" mat-dialog-actions fxLayout="row" fxLayoutAlign="flex-end center">
+        <button style="margin-right: 20px;" class="btn-main" mat-raised-button (click)="release()" *ngIf="currentAction == 'UPDATE'"
+            aria-label="RELEASE" [disabled]="_dialogData.data.status == 1">
+            <mat-icon class="icon-btn">send</mat-icon>
+            {{'CONTROL.CONFIRM' | translate}}
+        </button>
+        <button style="margin-right: 20px;" class="btn-main" mat-raised-button (click)="save()" *ngIf="currentAction == 'UPDATE'"
+            [disabled]="_dialogData.data.status == 1" aria-label="SAVE">
+            <mat-icon class="icon-btn">save</mat-icon>
+            {{'CONTROL.SAVE_DRAFT' | translate}}
+        </button>
+        <button class="btn-close btn-main" mat-raised-button (click)="print()" aria-label="PRINT"
+            *ngIf="currentAction == 'VIEW'">
+            <mat-icon class="icon-btn">print</mat-icon>
+            {{'CONTROL.VIEW_TAX_INCOME_LETTER' | translate}}
+        </button>
+        <button class="btn-close" mat-raised-button (click)="close()" aria-label="CLOSE">
+            <mat-icon class="icon-btn">close</mat-icon>
+            {{'CONTROL.CLOSE' | translate}}
+        </button>    
+    </div>
+
+<!-- / CONTENT CARD -->
+<!-- / CENTER -->

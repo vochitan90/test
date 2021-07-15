@@ -1,0 +1,32 @@
+#listUsbToken {
+    display: flex;
+    flex-direction: column;
+
+    .content-card {
+        height: calc(40vh - 100px);
+        padding: 2px 10px;
+        overflow: auto;
+
+        // .form-content {
+        //     border: 1px solid #8080808c;
+        //     border-radius: 3px;
+        //     padding: 10px;
+        //     display: flex;
+        //     flex-direction: column;
+        //     gap: 9px;
+        // }
+    }
+
+    .message-info{
+        text-align: right;
+        font-weight: bold;
+        font-style: italic;
+        color: darkgreen;
+    }
+
+    .list-button {
+        border-top: 1px solid #018747;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}

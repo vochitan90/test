@@ -1,0 +1,23 @@
+<!-- <td-dialog>
+  <td-dialog-title *ngIf="title">
+    {{title}}
+  </td-dialog-title>
+  <td-dialog-content>
+    <span class="td-dialog-message">{{message}}</span>
+  </td-dialog-content>
+  <td-dialog-actions>
+    <button mat-button color="accent" (click)="close()">{{closeButton}}</button>
+  </td-dialog-actions>
+</td-dialog> -->
+<div class="td-dialog-wrapper">
+  <h3 class="td-dialog-title" *ngIf="title" >
+    {{title}}
+  </h3>
+  <div class="td-dialog-content"  *ngIf="message" >
+    {{message}}
+  </div>
+  <div class="td-dialog-actions">
+    <span class="td-dialog-spacer"></span>
+    <button *ngIf="closeButton" mat-button color="accent" (click)="close()">{{closeButton}}</button>
+  </div>
+</div>

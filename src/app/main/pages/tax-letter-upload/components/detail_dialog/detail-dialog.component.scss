@@ -1,0 +1,89 @@
+@import 'src/@fuse/scss/fuse';
+#tableUploadFail {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #tableUploadFail td, #tableUploadFail th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #tableUploadFail tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #tableUploadFail tr:hover {background-color: #ddd;}
+  
+  #tableUploadFail th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: red;
+    color: white;
+    font-weight: normal;
+  }
+
+  #tableUploadSuccess {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #tableUploadSuccess td, #tableUploadSuccess th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #tableUploadSuccess tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #tableUploadSuccess tr:hover {background-color: #ddd;}
+  
+  #tableUploadSuccess th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #018747;
+    color: white;
+    font-weight: normal;
+  }
+
+  
+#taxincomeLetterDetailDialog {
+
+  .form-container{
+    min-height: calc(100vh - 185px);
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
+  }
+  .mat-dialog-title{
+    display: flex;
+  }
+  ul.title-info{
+    list-style:none; 
+    line-height: 25px;
+    li{
+      line-height: 25px;
+      button{
+        height: 30px;
+      }
+    }    
+  }
+  max-width: 100%;
+  table{
+    display: block;
+    overflow: auto;
+
+    tr{
+      white-space: nowrap;
+    }
+  }
+
+  .icon-btn-fail{
+    color:red;
+    line-height: 20px;
+    margin-right: 10px;
+  }
+  .icon-btn-success{
+    color: #018747;
+    line-height: 20px;
+    margin-right: 10px;
+  }
+}

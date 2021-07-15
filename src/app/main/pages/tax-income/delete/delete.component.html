@@ -1,0 +1,36 @@
+<div class="dialog-content-wrapper content" id="deleteTaxIncome">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title"> {{'TAXINCOME.DELETE_PAGE_TITLE' | translate}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-progress-bar *ngIf="store.isLoading" mode="indeterminate"></mat-progress-bar>
+    <div class="content-delete">
+        <form [formGroup]="form">
+            <div>Ghi chú <span class="icon-require">*</span>
+            </div>
+            <div class="content-text">
+                <textarea rows="5" formControlName="note"></textarea>
+            </div>
+            <div>Đính kèm biên bản hủy <span class="icon-require">*</span></div>
+            <div class="upload-content">
+                <file-upload accept=".docx,.doc,.pdf" [multiple]="false" animation="true" formControlName="files">
+                </file-upload>
+            </div>
+        </form>
+    </div>
+    <div class="list-button" fxLayout="row" fxLayoutAlign="flex-end center">
+        <button style="margin-right: 20px;" class="btn-close" mat-raised-button (click)="matDialogRef.close()"
+            aria-label="ISSUE">
+            <mat-icon class="icon-btn">cancel</mat-icon>
+            {{'CONTROL.LEAVE'|translate}}
+        </button>
+        <button class="btn-main" mat-raised-button aria-label="SAVE" (click)="cancel()">
+            <mat-icon class="icon-btn">done</mat-icon>
+            {{'CONTROL.AGREE'|translate}}
+        </button>
+    </div>
+</div>

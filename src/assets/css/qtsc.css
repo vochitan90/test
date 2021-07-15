@@ -1,0 +1,66 @@
+.mat-accent-bg {
+    background-color: #f27554 !important;
+}
+
+.mat-toolbar.mat-accent {
+    background-color: #f27554 !important;
+    color: white !important;
+}
+
+.mat-icon.mat-primary {
+    color: #f27554 !important;
+}
+
+.mat-flat-button.mat-accent,
+.mat-raised-button.mat-accent,
+.mat-fab.mat-accent,
+.mat-mini-fab.mat-accent {
+    background-color: #f27554 !important;
+}
+
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+    background-color: #f27554 !important;
+}
+
+.mat-button.mat-accent {
+    color: #f27554 !important;
+}
+
+
+
+.read-notification {
+    float: right;
+    cursor: pointer;
+    color: #f27554 !important;
+}
+
+.custom-spinner .mat-progress-spinner circle {
+    stroke: #f27554 !important;
+}
+
+.custom-spinner .mat-spinner circle {
+    stroke: #f27554 !important;
+}
+.logo-text{
+    /* font-weight: 700 !important;
+    color: #f27554 !important; */
+}
+.logo-qtsc {
+    font-weight: 700 !important;
+    color: #f27554 !important;
+}
+.background-input {
+    /* background: #03a9f4; */
+    background: transparent !important;
+    border-bottom: 1px solid #dedede;
+}
+/* .hint-text-temp {
+    color: black !important;
+}
+
+.logo-text {
+    color: black !important;
+} */

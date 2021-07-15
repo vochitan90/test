@@ -1,0 +1,121 @@
+<div id="revonue" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg mat-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header mat-accent-bg" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <div class="logo my-12 m-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <span class="logo-text h3">
+                    {{'REPORT_LIST.REVONUE_PAGE_TITLE' | translate}}
+                </span>
+            </div>
+        </div>
+
+        <div class="content-card mat-white-bg ag-theme-material-paging">
+            <mat-progress-bar *ngIf="store.isLoading" mode="indeterminate"></mat-progress-bar>
+            <div class="form-usage">
+                <div class="header" [ngStyle]="{'width':typeYear === '5'?'65%':'100%' }">
+                    <mat-form-field class="u-margin-0 u-width-100 " fxFlex>
+                        <mat-label>{{'REPORT_LIST.TYPE'|translate}}</mat-label>
+                        <mat-select placeholder="{{'REPORT_LIST.TYPE'|translate}}" [(ngModel)]="typeYear">
+                            <mat-option *ngFor="let elem of lstTypeYear" [value]="elem.code">
+                                {{ elem.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="typeYear === '1'" class="u-margin-0 u-width-100 " fxFlex>
+                        <mat-label>Từ ngày</mat-label>
+                        <input dateInput matInput [matDatepicker]="pickerFromDate" [valueDefaultDate]="data.fromDate"
+                            (changeNewDate)="dateChange('fromDate',$event)"
+                            (dateChange)="dateChange('fromDate',$event)">
+                        <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFromDate></mat-datepicker>
+
+                    </mat-form-field>
+                    <mat-form-field *ngIf="typeYear === '1'" class="u-margin-0 u-width-100 " fxFlex>
+                        <mat-label>Đến ngày</mat-label>
+                        <input dateInput matInput [matDatepicker]="pickerToDate" [valueDefaultDate]="data.toDate"
+                            (changeNewDate)="dateChange('toDate',$event)" (dateChange)="dateChange('toDate',$event)">
+                        <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerToDate></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="typeYear === '2'" class="u-margin-0 u-width-100 " fxFlex>
+                        <mat-select placeholder="{{'REPORT_LIST.MONTH'|translate}}" [(ngModel)]="data.month">
+                            <mat-option *ngFor="let elem of lstMonth" [value]="elem.code">
+                                {{ elem.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="typeYear === '3'" class="u-margin-0 u-width-100 " fxFlex>
+                        <mat-select placeholder="{{'REPORT_LIST.PRECIOUS'|translate}}" [(ngModel)]="data.precious">
+                            <mat-option *ngFor="let elem of lstPrecious" [value]="elem.code">
+                                {{ elem.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field *ngIf="typeYear !== '1'" class="u-margin-0 u-width-100 " fxFlex>
+                        <mat-select placeholder="{{'REPORT_LIST.YEAR'|translate}}" [(ngModel)]="data.year">
+                            <mat-option *ngFor="let elem of lstYear" [value]="elem.code">
+                                {{ elem.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="header">
+                    <mat-form-field class="u-margin-0 u-width-100 ">
+                        <mat-label>Tổ chức trả thu nhập</mat-label>
+                        <mat-select [(ngModel)]="selectBU" (selectionChange)="orgChange($event)">
+                            <mat-option [value]="-1">-- Chọn --</mat-option>
+                            <mat-option *ngFor="let item of listBU" [value]="item.id">
+                                {{item.code}} - {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="u-margin-0 u-width-100 ">
+                        <mat-label>Mẫu số</mat-label>
+                        <mat-select [(ngModel)]="selectPattern" (selectionChange)="patternChange($event)">
+                            <mat-option *ngIf="listPattern.length>1" [value]="-1">-- Chọn --</mat-option>
+                            <mat-option *ngFor="let item of listPattern" [value]="item"
+                                (selectionChange)="patternChange($event)">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="u-margin-0 u-width-100 ">
+                        <mat-label>Ký hiệu</mat-label>
+                        <mat-select [(ngModel)]="selectSerial">
+                            <mat-option *ngIf="listSerial.length>1" [value]="-1">-- Chọn --</mat-option>
+                            <mat-option *ngFor="let item of listSerial" [value]="item">
+                                {{item}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="list-button" fxLayout="row" fxLayoutAlign="flex-start center">
+                    <button [disabled]="store.isLoading" style="margin-right: 20px;" class="btn-close" mat-raised-button
+                        (click)="exportPdf()" aria-label="pdft">
+                        <mat-icon class="icon-btn">picture_as_pdf</mat-icon>
+                        {{'CONTROL.EXPORT_PDF'|translate}}
+                    </button>
+                    <button [disabled]="store.isLoading" class="btn-main" mat-raised-button aria-label="report"
+                        (click)="exportReport()">
+                        <mat-icon class="icon-btn">content_paste</mat-icon>
+                        {{'CONTROL.EXPORT_REPORT'|translate}}
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- / CONTENT CARD -->
+    <!-- / CENTER -->
+</div>

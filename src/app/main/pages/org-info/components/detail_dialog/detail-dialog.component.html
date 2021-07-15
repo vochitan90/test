@@ -1,0 +1,184 @@
+<div class="dialog-content-wrapper content" id="detailOrgInfo">
+
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">
+                {{!isUpdateAction ? 'Chi tiết thông tin tổ chức' : 'Cập nhật thông tin tổ chức'}}
+            </span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div class="content-card mat-white-bg ag-theme-material-paging">
+        <mat-progress-bar *ngIf="store.isLoading" mode="indeterminate"></mat-progress-bar>
+        <form [formGroup]="form">
+            <div class="form-content">
+                <!-- Tên tổ chức trả thu nhập -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="organizationPayingIncome" matInput
+                        placeholder="{{'ORG_INFO.ORGANIZATION_PAYING_INCOME' | translate}} *"
+                        name="organizationPayingIncome">
+                    <mat-error *ngIf="form.get('organizationPayingIncome').invalid">
+                        <span *ngIf="form.get('organizationPayingIncome').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+                <div fxLayout="row">
+                     <!-- Mã code -->
+                     <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input formControlName="code" matInput
+                            placeholder="{{'ORG_INFO.CODE' | translate}} *" name="code">
+                        <mat-error *ngIf="form.get('code').invalid">
+                            <span *ngIf="form.get('code').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Mã số thuế -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input formControlName="taxCode" matInput placeholder="{{'ORG_INFO.TAX_CODE' | translate}} *"
+                            name="taxCode">
+                        <mat-error *ngIf="form.get('taxCode').invalid">
+                            <span *ngIf="form.get('taxCode').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Số điện thoại-->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input formControlName="phoneNumberOrganization" matInput
+                            placeholder="{{'ORG_INFO.PHONE_NUMBER' | translate}} *" name="phoneNumberOrganization">
+                        <mat-error *ngIf="form.get('phoneNumberOrganization').invalid">
+                            <span *ngIf="form.get('phoneNumberOrganization').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Email liên hệ -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input formControlName="contactEmail" matInput
+                            placeholder="{{'ORG_INFO.EMAIL' | translate}} *" name="contactEmail">
+                        <mat-error *ngIf="form.get('contactEmail').invalid">
+                            <span *ngIf="form.get('contactEmail').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                            <span *ngIf="form.get('contactEmail').errors?.pattern">
+                                Email không hợp lệ</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- Ngành nghề kinh doanh-->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="business" matInput placeholder="{{'ORG_INFO.BUSINESS' | translate}} *"
+                        name="business">
+                    <mat-error *ngIf="form.get('business').invalid">
+                        <span *ngIf="form.get('business').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+                <!-- Địa chỉ-->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="address" matInput placeholder="{{'ORG_INFO.ADDRESS' | translate}} *"
+                        name="address">
+                    <mat-error *ngIf="form.get('address').invalid">
+                        <span *ngIf="form.get('address').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+                <div fxLayout="row">
+                    <!-- Thành phố tỉnh -->
+
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <mat-select (selectionChange)="getDistrict($event)" placeholder="{{'ORG_INFO.CITY_PROVINCE'|translate}} *"
+                            name="cityProvince" formControlName="cityProvince" [compareWith]="compareProvinces">
+                            <mat-option *ngFor="let item of provinces" [value]="item">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.get('cityProvince').invalid">
+                            <span
+                                *ngIf="form.get('cityProvince').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Quận huyện thị xã -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <mat-select placeholder="{{'ORG_INFO.COUNTY_DISTRICT_TOWN'|translate}} *"
+                            name="countyDistrictTown" formControlName="countyDistrictTown" (selectionChange)="getWards($event)"
+                            [compareWith]="compareDistricts">
+                            <mat-option *ngFor="let item of districts" [value]="item">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.get('countyDistrictTown').invalid">
+                            <span
+                                *ngIf="form.get('countyDistrictTown').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- Quận-->
+                
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <mat-select placeholder="{{'ORG_INFO.WARDS'|translate}} *"
+                        name="wards" formControlName="wards" [compareWith]="compareWards">
+                        <mat-option *ngFor="let item of wards" [value]="item">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.get('wards').invalid">
+                        <span
+                            *ngIf="form.get('wards').errors?.required">{{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row">
+                    <!-- Tên người đại diện hợp pháp -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input formControlName="legalRepresentativeName" matInput
+                            placeholder="{{'ORG_INFO.LEGAL_REPRESENTATIVE_NAME' | translate}} *"
+                            name="legalRepresentativeName">
+                        <mat-error *ngIf="form.get('legalRepresentativeName').invalid">
+                            <span *ngIf="form.get('legalRepresentativeName').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Số điện thoại -->
+                    <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                        <input formControlName="phoneNumberRepresentative" matInput
+                            placeholder="{{'ORG_INFO.PHONE_NUMBER' | translate}} *" name="phoneNumberRepresentative">
+                        <mat-error *ngIf="form.get('phoneNumberRepresentative').invalid">
+                            <span *ngIf="form.get('phoneNumberRepresentative').errors?.required">
+                                {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <!-- Địa chỉ -->
+                <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+                    <input formControlName="addressRepresentative" matInput
+                        placeholder="{{'ORG_INFO.ADDRESS' | translate}} *" name="addressRepresentative">
+                    <mat-error *ngIf="form.get('addressRepresentative').invalid">
+                        <span *ngIf="form.get('addressRepresentative').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            
+
+
+        </form>
+    </div>
+
+    <div class="list-button" mat-dialog-actions fxLayout="row" fxLayoutAlign="flex-end center">
+        <button *ngIf="isUpdateAction" mat-raised-button (click)="save($event)" class="mat-accent"
+            aria-label="SAVE">
+            <mat-icon class="icon-btn">save</mat-icon>
+            {{'CONTROL.SAVE' | translate}}
+        </button>
+        <button class="btn-close" mat-raised-button (click)="close()" aria-label="CLOSE">
+            <mat-icon class="icon-btn">close</mat-icon>
+            {{'CONTROL.CLOSE' | translate}}
+        </button>
+    </div>
+
+    <!-- / CONTENT CARD -->
+    <!-- / CENTER -->

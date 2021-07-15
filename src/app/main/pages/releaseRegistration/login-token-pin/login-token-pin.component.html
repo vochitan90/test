@@ -1,0 +1,51 @@
+<div class="dialog-content-wrapper content" id="loginTokenPin">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">
+                Đăng nhập
+            </span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    <!-- status: {{isLoading}} -->
+    <div class="content-card mat-white-bg ag-theme-material-paging">
+        <form [formGroup]="form">
+            <div class="form-content">
+
+                <!-- Token Pin -->
+                <mat-form-field flex class="u-margin-0 u-width-100">
+                    <input formControlName="tokenPin" matInput placeholder="Nhập token pin*" name="tokenPin">
+                    <mat-error *ngIf="form.get('tokenPin').invalid">
+                        <div *ngIf="form.get('tokenPin').errors?.required">
+                            - {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</div>
+                        <!-- <div *ngIf="form.get('tokenPin').errors?.minlength || form.get('tokenPin').errors?.maxlength">
+                            - Token pin phải chứa đựng 8 số!
+                        </div> -->
+                        <div *ngIf="form.get('tokenPin').errors?.pattern">
+                            - Chỉ cho phép nhập số!
+                        </div>
+                    </mat-error>
+                </mat-form-field>
+
+                <p class="message-info">{{messageInfo}}</p>
+
+            </div>
+        </form>
+    </div>
+
+    <div mat-dialog-actions class="list-button" fxLayout="row" fxLayoutAlign="flex-end center">
+        <button class="btn-main" mat-raised-button (click)="loginTokenPin()" aria-label="CLOSE" [disabled]="!form.valid">
+            <mat-icon class="icon-btn">upload</mat-icon>
+            {{'CONTROL.LOGIN_TOKEN_PIN' | translate}}
+        </button>
+        <button class="btn-close" mat-raised-button (click)="matDialogRef.close(false)" aria-label="CLOSE">
+            <mat-icon class="icon-btn">close</mat-icon>
+            {{'CONTROL.CLOSE' | translate}}
+        </button>
+    </div>
+
+</div>

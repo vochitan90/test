@@ -1,0 +1,23 @@
+::ng-deep #listTaxIncomeCancel {
+    .select-search-bar {
+
+        // width: 250px;
+        min-width: 400px;
+        max-width: 550px;
+
+        .mat-select-placeholder {
+            color: #080000 !important;
+        }
+
+        .mat-select-value {
+            color: #080000;
+            background-color: white;
+            border-radius: 3px !important;
+            padding: 3px;
+        }
+
+        .mat-select-arrow {
+            color: white;
+        }
+    }
+}

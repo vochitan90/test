@@ -1,0 +1,54 @@
+<div class="dialog-content-wrapper content" id="uploadTaxIncomeDialog">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title"> {{'TAXINCOME.UPLOAD_TITLE' | translate}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-progress-bar *ngIf="storeTaxIncome.isLoading" mode="indeterminate"></mat-progress-bar>
+
+    <div class="content-card mat-white-bg">
+        <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+            <mat-label>Tổ chức trả thu nhập</mat-label>
+            <mat-select [(ngModel)]="selectBUnit" (ngModelChange)="businessUnitChange($event)">
+                <mat-option [value]="-1">-- Chọn --</mat-option>
+                <mat-option *ngFor="let item of listBusinessUnit" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+            <mat-label>Mẫu số</mat-label>
+            <mat-select [(ngModel)]="selectPattern" (ngModelChange)="patternChange($event)">
+                <mat-option *ngIf="listPattern.length>1" [value]="-1">-- Chọn --</mat-option>
+                <mat-option *ngFor="let item of listPattern" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field flex class="u-margin-0 u-width-100 u-padding-7-left-right">
+            <mat-label>Ký hiệu</mat-label>
+            <mat-select [(ngModel)]="selectSerial">
+                <mat-option *ngIf="listSerial.length>1" [value]="-1">-- Chọn --</mat-option>
+                <mat-option *ngFor="let item of listSerial" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <form [formGroup]="form">
+            <file-upload [multiple]="false" minsize="10KB" maxsize="10 MB" accept=".xlsx" animation="true"
+                formControlName="files">
+            </file-upload>
+        </form>
+        <p style="color: red; font-weight: normal; font-style: italic;">{{'PROCESS_UPLOAD.SUPPORT_ONLY_FILE' |
+            translate}}.xlsx</p>
+    </div>
+    <div class="list-button" fxLayout="row" fxLayoutAlign="flex-end center">
+        <button class="btn-main" mat-raised-button (click)="upload()" aria-label="CLOSE">
+            <mat-icon class="icon-btn">upload</mat-icon>
+            {{'CONTROL.UPLOAD' | translate}}
+        </button>
+    </div>
+</div>

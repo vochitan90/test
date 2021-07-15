@@ -1,0 +1,42 @@
+<div [ngClass]="getIndigoClass()" class="navbar-top" *mobxAutorun>
+
+    <div class="logo" (click)="openHomePage()" style="cursor: pointer">
+        <!-- <img class="logo-icon" src="assets/images/logos/fuse.svg"> -->
+        <!-- <img class="logo-icon" src="assets/images/logos/logo.png"> -->
+        <img class="logo-icon" [src]="icon">
+        <span class="logo-qtsc" [ngClass]="getTextClassApplication()">{{title}}</span>
+    </div>
+
+    <div class="buttons">
+
+        <button mat-icon-button class="toggle-sidebar-folded" (click)="toggleSidebarFolded()" fxHide.lt-lg>
+            <mat-icon class="secondary-text">menu</mat-icon>
+        </button>
+
+        <button mat-icon-button class="toggle-sidebar-opened" (click)="toggleSidebarOpened()" fxHide.gt-md>
+            <mat-icon class="secondary-text">arrow_back</mat-icon>
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="navbar-scroll-container" fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}">
+
+    <!-- <div class="user" fxLayout="column" fxLayoutAlign="start center">
+        <div class="h3 username">{{userInfo?.fullName}}</div>
+        <div *ngIf="!isCA" [ngClass]="getTextClass()">{{userInfo?.email}}</div>
+        <div *ngIf="isCA" [ngClass]="getTextClass()">{{userInfo?.moreInfo.userName}}</div>
+        <div *ngIf="userInfo?.moreInfo?.agentId" [ngClass]="getTextClass()">{{ userInfo.moreInfo.agentId }}</div>
+        <div *ngIf="unitInfo" class="h5 email hint-text mt-8">{{unitInfo?.name}}</div>
+        <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.background">
+            <img class="avatar" src="assets/images/avatars/profile.jpg">
+        </div>
+    </div> -->
+
+    <div class="navbar-content">
+        <fuse-navigation layout="vertical"></fuse-navigation>
+    </div>
+
+</div>

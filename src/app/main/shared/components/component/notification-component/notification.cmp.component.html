@@ -1,0 +1,36 @@
+<div class="dialog-content-wrapper content notification-component-form-dialog">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Thông báo</span>
+            <button mat-icon-button (click)="matDialogRef.close(true)" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-12 m-0" fusePerfectScrollbar>
+            <div class="mail-content">
+    
+                <div class="info" fxLayout="row" fxLayoutAlign="space-between start">
+    
+                    <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+                        <div class="details" fxLayout="row" fxLayoutAlign="start start">
+    
+                            <div fxLayout="column">
+                                <span class="title">From:</span>
+                                <span class="title">Date:</span>
+                            </div>
+    
+                            <div fxLayout="column">
+                                <span class="detail">{{notification.from}}</span>
+                                <span class="detail">{{notification.time}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div style="white-space: pre-wrap;" [innerHTML]="notification.message"></div>
+    
+            </div>
+    </div>
+</div>

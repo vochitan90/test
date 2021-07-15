@@ -1,0 +1,102 @@
+@import 'src/@fuse/scss/fuse';
+
+#detailUploadTaxIncome {
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 13px 0px 18px 25px;
+
+        .block {
+            height: 20px;
+            display: flex;
+            align-items: center;
+
+            .file-name {
+                text-decoration: underline;
+                color: #018747;
+            }
+
+            .title {
+                width: 136px;
+            }
+        }
+    }
+
+    .content-card {
+        height: calc(90vh - 233px);
+        padding: 2px 10px;
+        overflow: auto;
+    }
+
+    .list-button {
+        gap: 7px;
+        border-top: 1px solid #018747;
+        padding-top: 13px;
+    }
+
+    .title-expand {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    #tableUploadFail {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #tableUploadFail td,
+    #tableUploadFail th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #tableUploadFail tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #tableUploadFail tr:hover {
+        background-color: #ddd;
+    }
+
+    #tableUploadFail th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: red;
+        color: white;
+        font-weight: normal;
+    }
+
+    #tableUploadSuccess {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #tableUploadSuccess td,
+    #tableUploadSuccess th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #tableUploadSuccess tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #tableUploadSuccess tr:hover {
+        background-color: #ddd;
+    }
+
+    #tableUploadSuccess th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #018747;
+        color: white;
+        font-weight: normal;
+    }
+}

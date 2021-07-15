@@ -1,0 +1,119 @@
+.mat-accent-bg {
+    background-color: #018747 !important;
+}
+
+.mat-indigo-700-bg {
+    background-color: #018747 !important;
+    color: white !important;
+}
+
+.mat-toolbar.mat-accent {
+    background-color: #018747 !important;
+    color: white !important;
+}
+
+.mat-icon.mat-primary {
+    color: #018747 !important;
+}
+
+.mat-flat-button.mat-accent,
+.mat-raised-button.mat-accent,
+.mat-fab.mat-accent,
+.mat-mini-fab.mat-accent {
+    background-color: #018747 !important;
+}
+
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+    background-color: #018747 !important;
+}
+
+.read-notification {
+    float: right;
+    cursor: pointer;
+    color: #018747 !important;
+}
+
+.custom-spinner .mat-progress-spinner circle {
+    stroke: #018747 !important;
+}
+
+.custom-spinner .mat-spinner circle {
+    stroke: #018747 !important;
+}
+
+.logo-fe {
+    font-weight: 700 !important;
+    color: #018747 !important;
+}
+
+.background-input {
+    background: transparent !important;
+    border-bottom: 1px solid #dedede;
+}
+
+.mat-danger-text {
+    background-color: #f27554 !important;
+}
+
+/* .mat-accent-bg {
+    background-color: #018747 !important;
+}
+
+.mat-indigo-700-bg {
+    background-color: #018747 !important;
+    color: white !important;
+}
+
+.mat-toolbar.mat-accent {
+    background-color: #018747 !important;
+    color: white !important;
+}
+
+.mat-icon.mat-primary {
+    color: #018747 !important;
+}
+
+.mat-flat-button.mat-accent,
+.mat-raised-button.mat-accent,
+.mat-fab.mat-accent,
+.mat-mini-fab.mat-accent {
+    background-color: #018747 !important;
+}
+
+.mat-flat-button.mat-primary,
+.mat-raised-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+    background-color: #018747 !important;
+}
+
+.read-notification {
+    float: right;
+    cursor: pointer;
+    color: #018747 !important;
+}
+
+.custom-spinner .mat-progress-spinner circle {
+    stroke: #018747 !important;
+}
+
+.custom-spinner .mat-spinner circle {
+    stroke: #018747 !important;
+}
+
+.logo-fe {
+    font-weight: 700 !important;
+    color: #018747 !important;
+}
+
+.background-input {
+    background: transparent !important;
+    border-bottom: 1px solid #dedede;
+}
+
+.mat-danger-text {
+    background-color: #f27554 !important;
+} */

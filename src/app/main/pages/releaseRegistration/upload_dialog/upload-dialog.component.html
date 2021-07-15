@@ -1,0 +1,52 @@
+<div class="dialog-content-wrapper content" id="uploadPeriodDialog">
+    <div class="center">
+        <!-- <mat-toolbar matDialogTitle class="mat-accent m-0">
+            <div class="h3 u-padding-16-left">
+                {{'RELEASE_REGISTRATION.CONFIRM_CANCEL' | translate}}
+            </div>
+        </mat-toolbar> -->
+
+        <mat-toolbar matDialogTitle class="mat-accent m-0">
+            <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title"> {{'RELEASE_REGISTRATION.CONFIRM_CANCEL' | translate}}</span>
+                <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+
+        <div class="content-card mat-white-bg form-container">
+            <mat-progress-bar *ngIf="store.isLoading" mode="indeterminate"></mat-progress-bar>
+            <form [formGroup]="form">
+
+                <!-- Ghi chú -->
+                <mat-form-field flex class="u-margin-0 u-width-100">
+                    <input formControlName="note" matInput placeholder="{{'RELEASE_REGISTRATION.NOTE' | translate}} *"
+                        name="note">
+                    <mat-error *ngIf="form.get('note').invalid">
+                        <span *ngIf="form.get('note').errors?.required">
+                            {{'ERROR.CONSTRAINTS.NOTNULL'|translate}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <file-upload minsize="10KB" maxsize="10 MB" accept=".docx,.doc" animation="true" formControlName="files">
+                </file-upload>
+            </form>
+            <p style="color: red; font-weight: normal; font-style: italic;">{{'RELEASE_REGISTRATION.SUPPORT_ONLY_FILE' |
+                translate}}.doc, .docx</p>
+        </div>
+
+        <div mat-dialog-actions class="m-0 sticky-bottom" fxLayout="row" fxLayoutAlign="flex-end center">
+            <button class="btn-close" mat-raised-button (click)="matDialogRef.close(false)" aria-label="CLOSE">
+                <mat-icon class="icon-btn">close</mat-icon>
+                {{'CONTROL.LEAVE' | translate}}
+            </button>
+            <!-- <button class="btn-main" mat-raised-button (click)="upload()" aria-label="CLOSE">
+                <mat-icon class="icon-btn">upload</mat-icon>
+                Đồng ý
+            </button> -->
+
+        </div>
+    </div>
+</div>

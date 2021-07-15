@@ -1,0 +1,80 @@
+{
+  "/api/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/i18n/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrcustomer/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrformio/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/dms/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrnotification/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrticket/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrsecmt/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrusprofile/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/crmticket/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrsupporter/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/mcrqtscmgt/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/activitystreams/*": {
+    "target": "https://app-dev.lcssoft.com.vn",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
